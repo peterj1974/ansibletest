@@ -1,0 +1,10 @@
+---
+- hosts: all
+  gather_facts: yes
+  vars:
+    myfile: 'C:\Users\test.txt'
+  tasks:
+    - name: Create file
+      ansible.windows.win_file:
+        path: "{{ myfile }}"
+        state: touch
