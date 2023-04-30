@@ -1,7 +1,8 @@
 ---
 # This playbook will install a Percona XtraDB Cluster
 
-# Pull in variables based on client OS
+# Pull in variables based on client OS. 
+# include_vars - loads YAML/JSON variables dynamically from a file/dir, recursivley during task runtime.
 # https://ansible-tips-and-tricks.readthedocs.io/en/latest/os-dependent-tasks/variables/
 - name: "Include {{ ansible_distribution }} variables"
   include_vars: "{{ item }}"
