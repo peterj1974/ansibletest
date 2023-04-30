@@ -1,0 +1,20 @@
+---
+# This playbook will install a Percona XtraDB Cluster
+
+# Pull in variables based on client OS
+# https://ansible-tips-and-tricks.readthedocs.io/en/latest/os-dependent-tasks/variables/
+- name: "Include {{ ansible_distribution }} variables"
+  include_vars: "{{ item }}"
+  with_first_found:
+    - "{{ ansible_distribution }}.yml"
+    - "{{ ansible_os_family }}.yml"
+  tags: install
+
+# Install Percona packages
+- name: Install packages
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ xtradb_packages }}"
+  tags: install
+
