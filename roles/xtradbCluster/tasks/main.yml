@@ -16,7 +16,19 @@
     path: "{{ xtradb_configured }}"
   register: "_xtradb_configured"
   tags: install
-  
+
+- name: Cheking if XtraDB cluster is already secured
+  stat:
+    path: "{{ xtradb_secured }}"
+  register: "_xtradb_secured"
+  tags: install
+
+- name: Cheking if XtraDB cluster is already configured with the password
+  stat:
+    path: "{{ xtradb_password_changed }}"
+  register: "_xtradb_password_changed"
+  tags: install
+
 # Include the Debian.yml task wich sets up the Percona repo
 - name: "Include {{ ansible_distribution }} tasks"
   include_tasks: "{{ item }}"
@@ -33,3 +45,27 @@
   with_items: "{{ xtradb_packages }}"
   tags: install
 
+- name: Ensure service is started
+  service:
+    name: "{{ xtradb_service }}"
+    state: started
+    enabled: true
+  tags: install
+  when:
+    - not _xtradb_secured.stat.exists
+
+- debug:
+    var: _xtradb_secured
+
+- name: include secure tasks
+  import_tasks: secure_install.yml
+  tags: install
+  when:
+    - not _xtradb_secured.stat.exists
+
+- name: include bootstrap tasks
+  import_tasks: bootstrap.yml
+  tags: configure
+  when:
+    - (not _xtradb_configured.stat.exists) and
+      (not xtradb_tls_enabled)
