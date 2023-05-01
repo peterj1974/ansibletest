@@ -11,6 +11,13 @@
     - "{{ ansible_os_family }}.yml"
   tags: install
 
+- name: Checking if XtraDB cluster is already configured
+  stat:
+    path: "{{ xtradb_configured }}"
+  register: "_xtradb_configured"
+  tags: install
+  
+# Include the Debian.yml task wich sets up the Percona repo
 - name: "Include {{ ansible_distribution }} tasks"
   include_tasks: "{{ item }}"
   with_first_found:
