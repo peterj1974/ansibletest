@@ -23,15 +23,15 @@ xtradb_root_user: root
 xtradb_root_password: root
 
 # Define Ansible group in which the nodes exist to be part of the cluster
-xtradb_nodes_group: "xtradb-cluster-nodes"
+xtradb_nodes_group: "db"
 
 # Define the node pool 
-xtradb_wsrep_cluster_address: "gcomm://{{ groups[xtradb_nodes_group] | map('extract', hostvars, ['ansible_' ~ xtradb_bind_interface, 'ipv4', 'address']) | join(',') }}"
-#xtradb_wsrep_cluster_address: "gcomm://{{ groups['db'] | map('extract', hostvars, ['ansible_default_ipv4', 'address']) | join(',') }}"
+#xtradb_wsrep_cluster_address: "gcomm://{{ groups[xtradb_nodes_group] | map('extract', hostvars, ['ansible_' ~ xtradb_bind_interface, 'ipv4', 'address']) | join(',') }}"
+xtradb_wsrep_cluster_address: "gcomm://{{ groups['db'] | map('extract', hostvars, ['ansible_default_ipv4', 'address']) | join(',') }}"
 
 # Defines the which node should be considered the master in the cluster
 # Used to bootstrap cluster
-xtradb_master_node: "{{ hostvars[ groups[xtradb_nodes_group][0] ].ansible_default_ipv4.address }}"
+xtradb_master_node: "{{ hostvars[ groups[db][0] ].ansible_default_ipv4.address }}"
 
 # Defines the version
 xtradb_version: "57"
@@ -53,7 +53,7 @@ xtradb_sst_user: sstuser
 xtradb_sst_password: sstpassword
 
 # Defines the cluster name
-xtradb_cluster_name: foo
+xtradb_cluster_name: "prod-customer"
 
 # Boolean for cluster TLS mode
 xtradb_tls_enabled: false
