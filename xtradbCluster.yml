@@ -1,6 +1,7 @@
 ---
-- hosts: db
+- hosts: all
   gather_facts: true
-  become: true
+  become: yes
+  become_method: sudo
   roles:
     - xtradbCluster
