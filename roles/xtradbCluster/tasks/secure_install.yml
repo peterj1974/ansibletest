@@ -6,9 +6,9 @@
     - not _xtradb_password_changed.stat.exists
 
 - name: Write password to file so we can check
- copy:
-   content: "{{ _xtradb_root_temp_password}}"
-   dest: /tmp/
+  copy:
+    content: "{{ _xtradb_root_temp_password}}"
+    dest: /tmp/
 
 - name: Percona | Change Percona Root Pass
   shell: "echo \"ALTER USER 'root'@'localhost' IDENTIFIED BY '{{ xtradb_root_password }}'; FLUSH PRIVILEGES;\" | mysql -u root --password='{{ _xtradb_root_temp_password.stdout }}' --connect-expired-password"
