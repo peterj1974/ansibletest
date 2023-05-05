@@ -57,15 +57,15 @@
 - debug:
     var: _xtradb_secured
 
-- name: include secure tasks
-  import_tasks: secure_install.yml
-  tags: install
-  when:
-    - not _xtradb_secured.stat.exists
-
-- name: include bootstrap tasks
-  import_tasks: bootstrap.yml
-  tags: configure
-  when:
-    - (not _xtradb_configured.stat.exists) and
-      (not xtradb_tls_enabled)
+#- name: include secure tasks
+#  import_tasks: secure_install.yml
+#  tags: install
+#  when:
+#    - not _xtradb_secured.stat.exists
+#
+#- name: include bootstrap tasks
+#  import_tasks: bootstrap.yml
+#  tags: configure
+#  when:
+#    - (not _xtradb_configured.stat.exists) and
+#      (not xtradb_tls_enabled)
