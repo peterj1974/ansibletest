@@ -20,7 +20,7 @@ xtradb_password_changed: "{{ xtradb_confdir }}/_password_changed"
 xtradb_root_user: root
 
 # Defines the root password
-xtradb_root_password: root
+xtradb_root_password: pete
 
 # Define Ansible group in which the nodes exist to be part of the cluster
 xtradb_nodes_group: "db"
