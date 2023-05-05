@@ -5,7 +5,7 @@
   when:
     - not _xtradb_password_changed.stat.exists
 
--name: Write password to file so we can check
+- name: Write password to file so we can check
  copy:
    content: "{{ _xtradb_root_temp_password}}"
    dest: /tmp/
