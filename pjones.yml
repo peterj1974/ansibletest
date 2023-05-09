@@ -9,7 +9,7 @@
 
   - name: Get IP addresses of hosts in group and sort in ascending order
     debug:
-      sorted_ips: "{{ groups['db'] | map('extract', hostvars, ['ansible_default_ipv4', 'address']) | sort | list }}"
+      sorted_ips: groups['db'] | map('extract', hostvars, ['ansible_default_ipv4', 'address']) | sort | list
 
 #  - name: Print db hosts
 #    debug:
