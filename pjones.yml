@@ -7,17 +7,13 @@
   become_method: sudo
   tasks:
 
-  - name: Get IP addresses of hosts in group and sort in ascending order
-    debug:
-      sorted_ips: groups['db'] | map('extract', hostvars, ['ansible_default_ipv4', 'address']) | sort | list
-
 #  - name: Print db hosts
 #    debug:
 #      var: groups['db'#]
 
-#  - name: Print extracted IP addresses
-#    debug:
-#      var: groups['db'] | map('extract', hostvars, ['ansible_default_ipv4', 'address'])
+  - name: Print extracted IP addresses
+    debug:
+      var: groups['db'] | map('extract', hostvars, ['ansible_default_ipv4', 'address'])
 #  
 #  - name: Print joined string
 #    debug:
