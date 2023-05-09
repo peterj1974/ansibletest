@@ -1,12 +1,19 @@
 ---
 - name: Print db hosts
-  debug:
-    var: groups['db']
+  hosts: all
+  gather_facts: yes
+  become: yes
+  become_user: root
+  become_method: sudo
+  tasks:
+  - name: Print db hosts
+    debug:
+      var: groups['db']
 
-- name: Print extracted IP addresses
-  debug:
-    var: groups['db'] | map('extract', hostvars, ['ansible_default_ipv4', 'address'])
-
-- name: Print joined string
-  debug:
-    var: groups['db'] | map('extract', hostvars, ['ansible_default_ipv4', 'address']) | join(',')
+#  - name: Print extracted IP addresses
+#    debug:
+#      var: groups['db'] | map('extract', hostvars, ['ansible_default_ipv4', 'address'])
+#  
+#  - name: Print joined string
+#    debug:
+#      var: groups['db'] | map('extract', hostvars, ['ansible_default_ipv4', 'address']) | join(',')
