@@ -1,4 +1,8 @@
 ---
+  - name: Print master node
+    debug:
+      var: hostvars[ groups['db'][0] ].ansible_eth0.ipv4.address
+
 #  - name: Print db hosts
 #    debug:
 #      var: groups['db'#]
@@ -19,9 +23,9 @@
 #    debug:
 #      var: groups['db'][0]
   
-  #- name: Print ansible_default_ipv4 of first db host
-  #  debug:
-  #    var: hostvars[ groups['db'][0] ].ansible_default_ipv4
+#  - name: Print ansible_default_ipv4 of first db host
+#    debug:
+#      var: hostvars[ groups['db'][0] ].ansible_default_ipv4
   
 #  - name: Print ansible_default_ipv4 of first db host
 #    debug:
