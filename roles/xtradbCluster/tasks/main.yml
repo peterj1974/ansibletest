@@ -62,10 +62,10 @@
   tags: install
   when:
     - not _xtradb_secured.stat.exists
-#
-#- name: include bootstrap tasks
-#  import_tasks: bootstrap.yml
-#  tags: configure
-#  when:
-#    - (not _xtradb_configured.stat.exists) and
-#      (not xtradb_tls_enabled)
+
+- name: include bootstrap tasks
+  import_tasks: bootstrap.yml
+  tags: configure
+  when:
+    - (not _xtradb_configured.stat.exists) and
+      (not xtradb_tls_enabled)
