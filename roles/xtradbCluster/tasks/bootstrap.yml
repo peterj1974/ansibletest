@@ -36,30 +36,33 @@
     ip2: "{{ ips[1] }}"
     ip3: "{{ ips[2] }}"
 
-- name: Start the master node
-  service:
-    name: "{{ xtradb_service }}@bootstrap.service"
-    state: started
-  when:
-    - xtradb_bind_address == xtradb_master_node
-    - ansible_os_family == "RedHat"
+- debug:
+    var: ansible_facts
 
-- name: Start the master node
-  command: /etc/init.d/mysql bootstrap-pxc
-  when:
-    - xtradb_bind_address == ansible_facts["ip1"]
-    - ansible_os_family == "Debian"
-
-- name: Write bind address to file so we can check
-  copy:
-    content: "{{ xtradb_bind_address }}"
-    dest: /tmp/bindout
-
-- name: Write master node to file so we can check
-  copy:
-    content: "{{ xtradb_master_node }}"
-    dest: /tmp/masterout
-
+#- name: Start the master node
+#  service:
+#    name: "{{ xtradb_service }}@bootstrap.service"
+#    state: started
+#  when:
+#    - xtradb_bind_address == xtradb_master_node
+#    - ansible_os_family == "RedHat"
+#
+#- name: Start the master node
+#  command: /etc/init.d/mysql bootstrap-pxc
+#  when:
+#    - xtradb_bind_address == ansible_facts["ip1"]
+#    - ansible_os_family == "Debian"
+#
+#- name: Write bind address to file so we can check
+#  copy:
+#    content: "{{ xtradb_bind_address }}"
+#    dest: /tmp/bindout
+#
+#- name: Write master node to file so we can check
+#  copy:
+#    content: "{{ xtradb_master_node }}"
+#    dest: /tmp/masterout
+#
 #- name: Create SST user
 #  mysql_user:
 #    login_user: "{{ xtradb_root_user }}"
