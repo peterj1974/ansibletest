@@ -38,10 +38,15 @@
     - xtradb_bind_address == xtradb_master_node
     - ansible_os_family == "RedHat"
 
+- name: select the master node
+  Get all ips into ascending order and pick top one
+  Store in a var and set as a fact
+
 - name: Start the master node
   command: /etc/init.d/mysql bootstrap-pxc
   when:
-    - xtradb_bind_address == xtradb_master_node
+     - xtradb_bind_address == var created above
+  #  - xtradb_bind_address == xtradb_master_node
     - ansible_os_family == "Debian"
 
 - name: Write bind address to file so we can check
