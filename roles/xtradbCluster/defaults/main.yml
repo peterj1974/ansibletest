@@ -47,6 +47,9 @@ xtradb_bind_interface: eth0
 #xtradb_bind_address: "{{ hostvars[inventory_hostname]['ansible_' + xtradb_bind_interface]['ipv4']['address'] }}"
 xtradb_bind_address: "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
 
+##PJ - Get all 3 ip addresses and sort
+ips: "{{ groups['db'] | map('extract', hostvars, ['ansible_default_ipv4', 'address']) | sort | list }}"
+
 # Defines the sst user
 xtradb_sst_user: sstuser
 
