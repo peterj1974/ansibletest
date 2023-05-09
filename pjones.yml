@@ -13,7 +13,7 @@
 
   - name: Print extracted IPs
     debug:
-      var: groups['db'] | map('extract', hostvars, ['ansible_default_ipv4', 'address'])| sort | list | first
+      var: groups['db'] | map('extract', hostvars, ['ansible_default_ipv4', 'address'])| sort | nth(1)
 #  
 #  - name: Print joined string
 #    debug:
