@@ -11,10 +11,17 @@
 #    debug:
 #      var: groups['db'#]
 
-  - name: Print extracted IPs
-    debug:
-      var: groups['db'] | map('extract', hostvars, ['ansible_default_ipv4', 'address'])| sort | list
+#  - name: Print extracted IPs
+#    debug:
+#      var: groups['db'] | map('extract', hostvars, ['ansible_default_ipv4', 'address'])| sort | list
 
+  ips: "{{ groups['db'] | map('extract', hostvars, ['ansible_default_ipv4', 'address'])| sort | list }}"
+
+  - name: Set IP facts
+    set_fact:
+      ip1: "{{ ips[0] }}"
+      ip2: "{{ ips[1] }}"
+      ip3: "{{ ips[2] }}"
 #  
 #  - name: Print joined string
 #    debug:
