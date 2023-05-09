@@ -30,70 +30,51 @@
   when:
     - docker is not defined
 
-- name: Set IP facts
-  set_fact:
-    ip1: "{{ ips[0] }}"
-    ip2: "{{ ips[1] }}"
-    ip3: "{{ ips[2] }}"
+- name: Start the master node
+  service:
+    name: "{{ xtradb_service }}@bootstrap.service"
+    state: started
+  when:
+    - xtradb_bind_address == xtradb_master_node
+    - ansible_os_family == "RedHat"
 
-- debug:
-    var: ansible_facts
+- name: Start the master node
+  command: /etc/init.d/mysql bootstrap-pxc
+  when:
+    - xtradb_bind_address == ansible_facts["ip1"]
+    - ansible_os_family == "Debian"
 
-#- name: Start the master node
-#  service:
-#    name: "{{ xtradb_service }}@bootstrap.service"
-#    state: started
-#  when:
-#    - xtradb_bind_address == xtradb_master_node
-#    - ansible_os_family == "RedHat"
-#
-#- name: Start the master node
-#  command: /etc/init.d/mysql bootstrap-pxc
-#  when:
-#    - xtradb_bind_address == ansible_facts["ip1"]
-#    - ansible_os_family == "Debian"
-#
-#- name: Write bind address to file so we can check
-#  copy:
-#    content: "{{ xtradb_bind_address }}"
-#    dest: /tmp/bindout
-#
-#- name: Write master node to file so we can check
-#  copy:
-#    content: "{{ xtradb_master_node }}"
-#    dest: /tmp/masterout
-#
-#- name: Create SST user
-#  mysql_user:
-#    login_user: "{{ xtradb_root_user }}"
-#    login_password: "{{ xtradb_root_password }}"
-#    login_unix_socket: "{{ xtradb_socket }}"
-#    name: "{{ xtradb_sst_user }}"
-#    password: "{{ xtradb_sst_password }}"
-#    priv: "*.*:grant,reload,lock tables,process,replication client"
-#  when:
-#    - xtradb_bind_address == xtradb_master_node
-#
-#- block: 
-#    - name: Start the slave nodes
-#      service:
-#        name: "{{ xtradb_service }}"
-#        state: started
-#      
-#  rescue:
-#    - name: Print 1000 lines of logs
-#      shell: 'tail -n 1000 /var/log/mysqld.log'
-#      register: dumplog
-#    - debug: var=dumplog.stdout_lines
-#  when:
-#        - xtradb_bind_address != xtradb_master_node
-#
-#- name: Marking as configured
-#  file:
-#    path: "{{ xtradb_configured }}"
-#    state: "touch"
-#    owner: root
-#    group: root
-#    mode: '0400'
-#
-#...
+- name: Create SST user
+  mysql_user:
+    login_user: "{{ xtradb_root_user }}"
+    login_password: "{{ xtradb_root_password }}"
+    login_unix_socket: "{{ xtradb_socket }}"
+    name: "{{ xtradb_sst_user }}"
+    password: "{{ xtradb_sst_password }}"
+    priv: "*.*:grant,reload,lock tables,process,replication client"
+  when:
+    - xtradb_bind_address == xtradb_master_node
+
+- block: 
+    - name: Start the slave nodes
+      service:
+        name: "{{ xtradb_service }}"
+        state: started
+      
+  rescue:
+    - name: Print 1000 lines of logs
+      shell: 'tail -n 1000 /var/log/mysqld.log'
+      register: dumplog
+    - debug: var=dumplog.stdout_lines
+  when:
+        - xtradb_bind_address != xtradb_master_node
+
+- name: Marking as configured
+  file:
+    path: "{{ xtradb_configured }}"
+    state: "touch"
+    owner: root
+    group: root
+    mode: '0400'
+
+...
