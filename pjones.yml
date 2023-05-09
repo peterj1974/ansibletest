@@ -22,10 +22,15 @@
 #  - name: Print ansible_default_ipv4 of first db host
 #    debug:
 #      var: hostvars[ groups['db'][0] ].ansible_default_ipv4
-  
-- name: Print ansible_default_ipv4 of first db host
-  debug:
-    var: hostvars[ groups['db'][0] ].ansible_eth0.ipv4.address
+- name: Test Vars
+  hosts: all
+  vars:
+    my_variable: hostvars[ groups['db'][0] ].ansible_default_ipv4
+  tasks:
+    - name: Print the value of my_variable
+      debug:
+        var: my_variable 
+
 
   
   
