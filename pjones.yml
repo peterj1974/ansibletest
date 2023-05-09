@@ -6,13 +6,15 @@
   become_user: root
   become_method: sudo
   tasks:
-  
-  - name: Set IP facts
-    ips: "{{ groups['db'] | map('extract', hostvars, ['ansible_default_ipv4', 'address'])| sort | list }}"
-    set_fact:
-      ip1: "{{ ips[0] }}"
-      ip2: "{{ ips[1] }}"
-      ip3: "{{ ips[2] }}"
+    - name: Get the list of IP addresses for the 'db' group
+        set_fact:
+          ips: "{{ groups['db'] | map('extract', hostvars, ['ansible_default_ipv4', 'address']) | sort | list }}"
+    
+    - name: Set IP facts
+      set_fact:
+        ip1: "{{ ips[0] }}"
+        ip2: "{{ ips[1] }}"
+        ip3: "{{ ips[2] }}"
 
 #  - name: Print db hosts
 #    debug:
