@@ -6,9 +6,9 @@
   become_user: root
   become_method: sudo
   tasks:
-  
+
   - name: Get IP addresses of hosts in group and sort in ascending order
-    set_fact:
+    debug:
       sorted_ips: "{{ groups['your_group_name'] | map('extract', hostvars, ['ansible_default_ipv4', 'address']) | sort | list }}"
 
 #  - name: Print db hosts
