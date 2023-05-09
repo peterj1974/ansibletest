@@ -6,9 +6,17 @@
   become_method: sudo
   vars:
     ips: "{{ groups['db'] | map('extract', hostvars, ['ansible_default_ipv4', 'address']) | sort | list }}"
+    xtradb_bind_address: "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
   tasks:     
     - name: Set IP facts
       set_fact:
         ip1: "{{ ips[0] }}"
         ip2: "{{ ips[1] }}"
         ip3: "{{ ips[2] }}"
+
+    - name: Server 1 only
+      debug:
+        msg: "This is server 1"
+      when xtradb_bind_address == ansible_facts["ip1"]
+
+
