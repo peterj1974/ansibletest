@@ -4,12 +4,9 @@
   become: yes
   become_user: root
   become_method: sudo
-  tasks:
-    - name: "Include variables"
-      include_vars: "{{ item }}"
-      with_first_found:
-        - pjvars.yml"
-     
+  vars:
+    ips: "{{ groups['db'] | map('extract', hostvars, ['ansible_default_ipv4', 'address']) | sort | list }}"
+  tasks:     
     - name: Set IP facts
       set_fact:
         ip1: "{{ ips[0] }}"
