@@ -26,12 +26,13 @@
     debug:
       var: groups['db'][0]
   
-  - name: Print ansible_default_ipv4 of first db host
-    debug:
-      var: hostvars[ groups['db'][0] ].ansible_default_ipv4
+  #- name: Print ansible_default_ipv4 of first db host
+  #  debug:
+  #    var: hostvars[ groups['db'][0] ].ansible_default_ipv4
   
-  - name: Print xtradb_master_node variable
-    debug:
-      var: xtradb_master_node
+  - name: Print ansible_default_ipv4 of first db host
+  debug:
+    var: hostvars[ groups['db'][0] ].ansible_host
+
   
   
