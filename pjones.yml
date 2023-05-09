@@ -6,14 +6,32 @@
   become_user: root
   become_method: sudo
   tasks:
+#  - name: Print db hosts
+#    debug:
+#      var: groups['db'#]
+
+#  - name: Print extracted IP addresses
+#    debug:
+#      var: groups['db'] | map('extract', hostvars, ['ansible_default_ipv4', 'address'])
+#  
+#  - name: Print joined string
+#    debug:
+#      var: groups['db'] | map('extract', hostvars, ['ansible_default_ipv4', 'address']) | join(',')
+
   - name: Print db hosts
     debug:
       var: groups['db']
-
-  - name: Print extracted IP addresses
-    debug:
-      var: groups['db'] | map('extract', hostvars, ['ansible_default_ipv4', 'address'])
   
-  - name: Print joined string
+  - name: Print first db host
     debug:
-      var: groups['db'] | map('extract', hostvars, ['ansible_default_ipv4', 'address']) | join(',')
+      var: groups['db'][0]
+  
+  - name: Print ansible_default_ipv4 of first db host
+    debug:
+      var: hostvars[ groups['db'][0] ].ansible_default_ipv4
+  
+  - name: Print xtradb_master_node variable
+    debug:
+      var: xtradb_master_node
+  
+  
