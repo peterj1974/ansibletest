@@ -1,36 +1,37 @@
 ---
-#  - name: Print db hosts
-#    debug:
-#      var: groups['db'#]
-
-#  - name: Print extracted IPs
-#    debug:
-#      var: groups['db'] | map('extract', hostvars, ['ansible_default_ipv4', 'address'])| sort | list
-#  
-#  - name: Print joined string
-#    debug:
-#      var: groups['db'] | map('extract', hostvars, ['ansible_default_ipv4', 'address']) | join(',')
-
-#  - name: Print db hosts
-#    debug:
-#      var: groups['db']
-#  
-#  - name: Print first db host
-#    debug:
-#      var: groups['db'][0]
-  
-#  - name: Print ansible_default_ipv4 of first db host
-#    debug:
-#      var: hostvars[ groups['db'][0] ].ansible_default_ipv4
-- name: Test Vars
+- name: Print vars to check
   hosts: all
-  vars:
-    my_variable: hostvars[ groups['db'][0] ].ansible_default_ipv4
+  gather_facts: yes
+  become: yes
+  become_user: root
+  become_method: sudo
   tasks:
-    - name: Print the value of my_variable
-      debug:
-        var: my_variable 
 
+  - name: Print db hosts
+    debug:
+      var: groups['db'#]
 
+  - name: Print extracted ip addresses
+    debug:
+      var: groups['db'] | map('extract', hostvars, ['ansible_default_ipv4', 'address'])
   
+  - name: Print joined string
+    debug:
+      var: groups['db'] | map('extract', hostvars, ['ansible_default_ipv4', 'address']) | join(',')
+  - name: Print db hosts
+    debug:
+      var: groups['db']
   
+  - name: Print first db host
+    debug:
+      var: groups['db'][0]
+ 
+  - name: Print ansible_default_ipv4 of first db host
+    debug:
+      var: hostvars[ groups['db'][0] ].ansible_default_ipv4
+ 
+  - name: Print ansible_default_ipv4 of first db host
+    debug:
+      var: hostvars[ groups['db'][0] ].ansible_eth0.ipv4.address
+ 
+ 
