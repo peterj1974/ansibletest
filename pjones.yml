@@ -9,7 +9,7 @@
 
   - name: Print db hosts
     debug:
-      var: groups['db'#]
+      var: groups['db']
 
   - name: Print extracted ip addresses
     debug:
