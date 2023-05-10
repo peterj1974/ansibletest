@@ -1,7 +1,13 @@
 ---
-- hosts: all
+- hosts: db
   gather_facts: true
   become: yes
   become_method: sudo
   roles:
-    - xtradbCluster
+    - role: xtradbCluster
+      xtradb_databases:
+        - name: morpheus
+      xtradb_users:
+        - name: morpheus
+          password: PASSWD
+          priv: 'morpheus.*:GRANT,ALL'
