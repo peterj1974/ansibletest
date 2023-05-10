@@ -45,7 +45,7 @@
   mysql_user:
     name: "{{ item.name }}"
     password: "{{ item.password }}"
-    host: "{{ item.host|default('%') }}"
+    host: "{{ item.host|default('localhost') }}"
     priv: "{{ item.priv }}"
     append_privs: "{{ item.append_privs|default('no') }}"
     login_user: root
