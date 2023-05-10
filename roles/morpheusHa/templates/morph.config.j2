@@ -1,0 +1,59 @@
+appliance_url '{{ morpheus_appliance_url }}'
+{% if morpheus_use_custom_repo == true %}
+repo['repo_host_url'] = '{{ morpheus_custom_repo }}'
+{% endif %}
+{% if morpheus_mysql_external == true %}
+mysql['enable'] = false
+{% if morpheus_db_url_override == true %}
+mysql['mysql_url_overide'] = 'jdbc:mysql://{% for minion in groups[morpheus_db_group] %}{{ hostvars[minion]['ansible_all_ipv4_addresses'][0] }}:{{ morpheus_db_port }}{% if not loop.last %},{% endif %}{% endfor %}{{ morpheus_db_url_override_options }}'
+{% else %}
+mysql['host'] = '{{ morpheus_db_host }}'
+{% endif %}
+mysql['morpheus_db'] = '{{ morpheus_db }}'
+mysql['morpheus_db_user'] = '{{ morpheus_db_user }}'
+mysql['morpheus_password'] = '{{ morpheus_db_pass }}'
+{% if morpheus_db_use_tls %}
+mysql['use_tls'] = true
+{% endif %}
+{% endif %}
+{% if morpheus_rabbitmq_external == true %}
+rabbitmq['enable'] = false
+rabbitmq['vhost'] = '{{ morpheus_rabbitmq_vhost }}'
+rabbitmq['queue_user'] = '{{ morpheus_rabbitmq_user }}'
+rabbitmq['queue_user_password'] = '{{ morpheus_rabbitmq_password }}'
+rabbitmq['host'] = '{{ morpheus_rabbitmq_lb }}'
+rabbitmq['port'] = '{{ morpheus_rabbitmq_port }}'
+rabbitmq['stomp_port'] = '{{ morpheus_rabbitmq_stomp_port }}'
+rabbitmq['heartbeat'] = '{{ morpheus_rabbitmq_heartbeat }}'
+{% else %}
+{% if groups[morpheus_group] | length > 1 and morpheus_rabbitmq_external == false %}
+rabbitmq['host'] = '0.0.0.0'
+rabbitmq['nodename'] = rabbit@{{ ansible_hostname }}
+{% endif %}
+{% endif %}
+{% if morpheus_rabbitmq_use_tls %}
+rabbitmq['use_tls'] = true
+{% endif %}
+
+{% if morpheus_elastic_external == true %}
+elasticsearch['enable'] = false
+elasticsearch['cluster'] = '{{ morpheus_elastic_cluster_name }}'
+elasticsearch['es_hosts'] = { {% for minion in morpheus_elastic_hosts %}
+'{{ minion['host'] }}' => {{ minion['port'] }}{% if not loop.last %},{% endif %}
+{% endfor %} }
+{% if morpheus_elastic_auth_user | length > 1 %}
+elasticsearch['auth_user'] = '{{ morpheus_elastic_auth_user }}'
+elasticsearch['auth_password'] = '{{ morpheus_elastic_auth_password }}'
+{% endif %}
+{% else %}
+{% if groups[morpheus_group] | length > 1 %}
+elasticsearch['es_hosts'] = { {% for minion in groups[morpheus_group] %}
+'{{ hostvars[minion]['ansible_all_ipv4_addresses'][0] }}' => 9200{% if not loop.last %},{% endif %}
+{% endfor %} }
+elasticsearch['host'] = '0.0.0.0'
+elasticsearch['node_name'] = '{{ ansible_hostname }}'
+{% endif %}
+{% endif %}
+{% if morpheus_elastic_tls == true %}
+elasticsearch['use_tls'] = true
+{% endif %}
