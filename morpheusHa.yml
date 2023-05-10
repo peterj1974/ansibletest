@@ -1,0 +1,7 @@
+---
+- hosts: morph
+  gather_facts: true
+  become: yes
+  become_method: sudo
+  roles:
+    - role: morpheusHa
