@@ -10,4 +10,4 @@
       xtradb_users:
         - name: morpheus
           password: PASSWD
-          priv: 'morpheus.*:ALL/*.*:SELECT,PROCESS,SHOW DATABASES,SUPER'
+          priv: 'morpheus.*:ALL,GRANT/*.*:SELECT,PROCESS,SHOW DATABASES,SUPER'
