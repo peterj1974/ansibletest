@@ -8,7 +8,7 @@ elasticsearch['node_name'] = '{{ ansible_hostname }}'
 {% endif %}
 {% if groups[morpheus_group] | length > 1 and morpheus_rabbitmq_external == false %}
 rabbitmq['host'] = '0.0.0.0'
-rabbitmq['nodename'] = rabbit@{{ ansible_hostname }}
+rabbitmq['nodename'] = 'rabbit@{{ ansible_hostname }}'
 {% endif %}
 mysql['enable'] = false
 mysql['host'] = {{ morpheus_db_host }}
