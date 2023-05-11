@@ -9,14 +9,14 @@
   loop: "{{ groups[morpheus_group] }}"
   run_once: true
 
-- name: Check for morpheus/ping
-  uri:
-    url: "https://{{ item }}/ping"
-    return_content: true
-    validate_certs: "{{ morpheus_validate_certs }}"
-  register: urlcontent
-  until: '"MORPHEUS PING" in urlcontent.content'
-  retries: 30
-  delay: 30
-  loop: "{{ groups[morpheus_group] }}"
-  run_once: true
+#- name: Check for morpheus/ping
+#  uri:
+#    url: "https://{{ item }}/ping"
+#    return_content: true
+#    validate_certs: "{{ morpheus_validate_certs }}"
+#  register: urlcontent
+#  until: '"MORPHEUS PING" in urlcontent.content'
+#  retries: 30
+#  delay: 30
+#  loop: "{{ groups[morpheus_group] }}"
+#  run_once: true
