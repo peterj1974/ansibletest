@@ -1,4 +1,10 @@
 --- 
+- name: ensure hostnames are in the host file
+  lineinfile:
+    dest: /etc/hosts
+    line: "{{ hostvars[item]['ansible_default_ipv4']['address'] }} {{ hostvars[item]['ansible_hostname'] }}"
+  with_items: "{{ groups['morph'] }}"
+
 - name: Morpheus UI | Push Morpheus config
   template:
     src: morph.config.j2
