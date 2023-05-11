@@ -1,0 +1,47 @@
+--- 
+- name: Morpheus UI | Push Morpheus config
+  template:
+    src: morph.config.j2
+    dest: /etc/morpheus/morpheus.rb
+  register: configpush
+
+- block:
+  - name: Push the elastic CA
+    copy:
+      src: "{{ morpheus_elastic_ca_file }}"
+      dest: "/tmp/{{ morpheus_elastic_ca_file }}"
+
+#  - name: Register CA in keystore
+#    command: "/opt/morpheus/embedded/java/bin/keytool -import -keystore /opt/morpheus/embedded/java/lib/security/cacerts --trustcacerts -file /tmp/{{ morpheus_elastic_ca_file }} -storepass changeit -noprompt -alias elasticca"
+#    register: ca_output
+#    retries: 2
+#    until: "'Certificate was added to keystore' in ca_output.stderr or 'already exists' in ca_output.stdout"
+#    failed_when: ca_output.rc != 0 and ca_output.rc != 1
+#    changed_when: "'Certificate was added to keystore' in ca_output.stderr"
+#  when: (morpheus_elastic_tls) and
+#        (not morpheus_elastic_ca_file == "")
+
+### Custom RabbitMQ TLS isn't functional anyway, so skip this
+#- block:
+#  - name: Push the rabbit CA
+#    copy:
+#      src: "{{ rabbitmq_tls_custom_cabundle_filename }}"
+#      dest: "/tmp/{{ rabbitmq_tls_custom_cabundle_filename }}"
+#
+#  - name: Register CA in keystore
+#    command: "/opt/morpheus/embedded/java/bin/keytool -import -keystore /opt/morpheus/embedded/java/lib/security/cacerts --trustcacerts -file /tmp/{{ rabbitmq_tls_custom_cabundle_filename }} -storepass changeit -noprompt -alias rabbitca"
+#    register: ca_output
+#    retries: 2
+#    until: "'Certificate was added to keystore' in ca_output.stderr or 'already exists' in ca_output.stdout"
+#    failed_when: ca_output.rc != 0 and ca_output.rc != 1
+#    changed_when: "'Certificate was added to keystore' in ca_output.stderr"
+#  when: (morpheus_rabbitmq_use_tls) and
+#        (not rabbitmq_tls_custom_cabundle_filename == "")
+
+#- name: Reconfigure hosts
+#  include_tasks: morpheus_run_reconfigure.yml
+#  when: ( morpheus_upgrade_flag == false )
+#
+#- name: Upgrade Morpheus
+#  include_tasks: morpheus_upgrade.yml
+#  when: ( morpheus_upgrade_flag == true )

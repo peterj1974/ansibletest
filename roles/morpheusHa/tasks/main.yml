@@ -9,7 +9,7 @@
 - include_tasks: morpheus_packages_ubuntu.yml
   when: ansible_os_family == 'Debian'
 
-#- include_tasks: morpheus_configure.yml
+- include_tasks: morpheus_configure.yml
 
 #- include_tasks: morpheus_initial_setup.yml
 #  when: morpheus_setup

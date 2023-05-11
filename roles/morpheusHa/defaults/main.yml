@@ -59,11 +59,11 @@ morpheus_elastic_auth_user: ""
 morpheus_elastic_auth_password: ""
 morpheus_elastic_ca_file: ""
 
-morpheus_mysql_external: false
+morpheus_mysql_external: true
 morpheus_db_group: db
-morpheus_db: morpheusdb
+morpheus_db: morpheus
 morpheus_db_user: morpheus
-morpheus_db_pass: Pa55w0rd!
+morpheus_db_pass: Password123?
 morpheus_db_port: 3306
 morpheus_db_use_tls: false
 morpheus_db_url_override: false

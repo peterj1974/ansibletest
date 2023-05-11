@@ -9,5 +9,5 @@
         - name: morpheus
       xtradb_users:
         - name: morpheus
-          password: PASSWD
+          password: Password123?
           priv: 'morpheus.*:ALL,GRANT/*.*:SELECT,PROCESS,SHOW DATABASES,SUPER'
