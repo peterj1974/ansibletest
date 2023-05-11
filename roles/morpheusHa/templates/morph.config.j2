@@ -11,7 +11,7 @@ rabbitmq['host'] = '0.0.0.0'
 rabbitmq['nodename'] = rabbit@{{ ansible_hostname }}
 {% endif %}
 mysql['enable'] = false
-mysql['host'] = '{{ morpheus_db_host }}'
+mysql['host'] = {{ morpheus_db_host }}
 mysql['morpheus_db'] = '{{ morpheus_db }}'
 mysql['morpheus_db_user'] = '{{ morpheus_db_user }}'
 mysql['morpheus_password'] = '{{ morpheus_db_pass }}'
