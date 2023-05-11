@@ -1,16 +1,1 @@
 appliance_url '{{ morpheus_appliance_url }}'
-mysql['host'] = '{{ morpheus_db_host }}'
-mysql['morpheus_db'] = '{{ morpheus_db }}'
-mysql['morpheus_db_user'] = '{{ morpheus_db_user }}'
-mysql['morpheus_password'] = '{{ morpheus_db_pass }}'
-{% if groups[morpheus_group] | length > 1 and morpheus_rabbitmq_external == false %}
-rabbitmq['host'] = '0.0.0.0'
-rabbitmq['nodename'] = rabbit@{{ ansible_hostname }}
-{% endif %}
-{% if groups[morpheus_group] | length > 1 %}
-elasticsearch['es_hosts'] = { {% for minion in groups[morpheus_group] %}
-'{{ hostvars[minion]['ansible_all_ipv4_addresses'][0] }}' => 9200{% if not loop.last %},{% endif %}
-{% endfor %} }
-elasticsearch['host'] = '0.0.0.0'
-elasticsearch['node_name'] = '{{ ansible_hostname }}'
-{% endif %}
