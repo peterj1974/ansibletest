@@ -33,7 +33,7 @@ morpheus_setup_hub_lastname: ""
 morpheus_setup_hub_jobtitle: ""
 morpheus_setup_hub_companyname: ""
 
-morpheus_group: morpheus
+morpheus_group: morph
 
 morpheus_upgrade_flag: false
 morpheus_package_state: present
