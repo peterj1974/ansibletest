@@ -5,11 +5,11 @@
     dest: /etc/morpheus/morpheus.rb
   register: configpush
 
-- block:
-  - name: Push the elastic CA
-    copy:
-      src: "{{ morpheus_elastic_ca_file }}"
-      dest: "/tmp/{{ morpheus_elastic_ca_file }}"
+#- block:
+#  - name: Push the elastic CA
+#    copy:
+#      src: "{{ morpheus_elastic_ca_file }}"
+#      dest: "/tmp/{{ morpheus_elastic_ca_file }}"
 
 #  - name: Register CA in keystore
 #    command: "/opt/morpheus/embedded/java/bin/keytool -import -keystore /opt/morpheus/embedded/java/lib/security/cacerts --trustcacerts -file /tmp/{{ morpheus_elastic_ca_file }} -storepass changeit -noprompt -alias elasticca"
