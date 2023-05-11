@@ -1,5 +1,5 @@
 appliance_url '{{ morpheus_appliance_url }}'
-{% if groups[morpheus_group] | length > 1 and morpheus_rabbitmq_external == false %}
+{% if groups[morph] | length > 1 and morpheus_rabbitmq_external == false %}
 rabbitmq['host'] = '0.0.0.0'
 rabbitmq['nodename'] = rabbit@{{ ansible_hostname }}
 {% endif %}
