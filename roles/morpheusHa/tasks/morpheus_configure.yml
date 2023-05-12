@@ -44,9 +44,9 @@
 #  when: (morpheus_rabbitmq_use_tls) and
 #        (not rabbitmq_tls_custom_cabundle_filename == "")
 
-#- name: Reconfigure hosts
-#  include_tasks: morpheus_run_reconfigure.yml
-#  when: ( morpheus_upgrade_flag == false )
+- name: Reconfigure hosts
+  include_tasks: morpheus_run_reconfigure.yml
+  when: ( morpheus_upgrade_flag == false )
 
 #- name: Upgrade Morpheus
 #  include_tasks: morpheus_upgrade.yml
