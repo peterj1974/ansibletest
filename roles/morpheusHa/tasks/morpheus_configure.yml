@@ -5,11 +5,11 @@
     line: "{{ hostvars[item]['ansible_default_ipv4']['address'] }} {{ hostvars[item]['ansible_hostname'] }}"
   with_items: "{{ groups['morph'] }}"
 
-#- name: Morpheus UI | Push Morpheus config
-#  template:
-#    src: morph.config.j2
-#    dest: /etc/morpheus/morpheus.rb
-#  register: configpush
+- name: Morpheus UI | Push Morpheus config
+  template:
+    src: morph.config.j2
+    dest: /etc/morpheus/morpheus.rb
+  register: configpush
 
 #- block:
 #  - name: Push the elastic CA
@@ -47,7 +47,7 @@
 #- name: Reconfigure hosts
 #  include_tasks: morpheus_run_reconfigure.yml
 #  when: ( morpheus_upgrade_flag == false )
-#
+
 #- name: Upgrade Morpheus
 #  include_tasks: morpheus_upgrade.yml
 #  when: ( morpheus_upgrade_flag == true )
