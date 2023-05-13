@@ -1,10 +1,20 @@
 ---
+#- name: Update morpheus-secrets.json
+#  become: true
+#  replace:
+#    path: /etc/morpheus/morpheus-secrets.json
+#    regexp: '"morpheus_password":\s*"[^"]+",\s*"queue_user_password":\s*"[^"]+",\s*"cookie":\s*"[^"]+"'
+#    replace: |
+#      "morpheus_password": "password",
+#      "queue_user_password": "queuepassword",
+#      "cookie": "erlangcookie"\n
 - name: Update morpheus-secrets.json
   become: true
   replace:
     path: /etc/morpheus/morpheus-secrets.json
-    regexp: '"morpheus_password":\s*"[^"]+",\s*"queue_user_password":\s*"[^"]+",\s*"cookie":\s*"[^"]+"'
-    replace: |
-      "morpheus_password": "password",
-      "queue_user_password": "queuepassword",
-      "cookie": "erlangcookie"\n
+    regexp: '{{ item.regexp }}'
+    replace: '{{ item.replace }}'
+  loop:
+    - { regexp: '("morpheus_password": )"[^"]+"', replace: '"morpheus_password": "password",' }
+    - { regexp: '("queue_user_password": )"[^"]+"', replace: '"queue_user_password": "queuepassword",' }
+    - { regexp: '("cookie": )"[^"]+"', replace: '"cookie": "erlangcookie"' }
