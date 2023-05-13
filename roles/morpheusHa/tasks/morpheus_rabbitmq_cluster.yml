@@ -3,7 +3,5 @@
   become: true
   replace:
     path: /etc/morpheus/morpheus-secrets.json
-    regexp: '{{ item.regexp }}'
-    replace: '{{ item.replace }}'
-  loop:
-    - { regexp: '("cookie": )"[^"]+"', replace: '\\1"CD697E962C554A9EC2F1"' }
+    regexp: '"morpheus_password":\s*"[^"]+",\s*"queue_user_password":\s*"[^"]+",\s*"cookie":\s*"[^"]+"'
+    replace: '"morpheus_password": "password", "queue_user_password": "queuepassword", "cookie": "erlangcookie"'
