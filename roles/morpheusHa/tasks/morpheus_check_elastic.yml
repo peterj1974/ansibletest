@@ -1,12 +1,8 @@
 --- 
-- name: Check Elastic
-  vars:
-    monitor: 9300
+- name: check elastic
+  wait_for:
+    port: 9300
+    host: "{{ item }}"
     timeout: 5
-  tasks:
-    - wait_for:
-        port: "{{ monitor }}"
-        host: "{{ item }}"
-        timeout: "{{ timeout }}"
-        msg: "{{ item }} is not running. End of play."
-      loop: "{{ groups['morph'] }}"
+    msg: "{{ item }} is not running. End of play."
+  loop: "{{ groups['morph'] }}"  
