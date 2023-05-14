@@ -21,7 +21,7 @@
 - debug:
     var: rabbitmq_sot
 
-#- include_tasks: set_vars.yml
+- include_tasks: set_vars.yml
 
 #- include_tasks: morpheus_initial_setup.yml
 #  when: morpheus_setup
