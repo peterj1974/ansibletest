@@ -1,7 +1,15 @@
----
+--- 
+- name: check elastic
+  wait_for:
+    port: 9300
+    host: "{{ item }}"
+    timeout: 5
+    msg: "{{ item }} is not running. End of play."
+  loop: "{{ groups['morph'] }}"  
+
 - name: Print var
   vars:
-      pete: jones
+    pete: jones
   
   tasks:
     - name: Print variable
