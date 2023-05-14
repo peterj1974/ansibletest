@@ -12,7 +12,7 @@
     pete: "jones"
 
 - debug:
-    msg : {{ pete }}
+    msg : '{{ pete }}'
 
 #- name: Set RabbitMQ variables from config file
 #  vars:
