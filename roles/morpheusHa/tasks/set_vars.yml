@@ -56,7 +56,5 @@
   copy:
     content: "{{ cookie }}"
     dest: /opt/morpheus/embedded/rabbitmq/.erlang.cookie
-    regexp: '{{ item.regexp }}'
-    replace: '{{ item.replace }}'
   when:
     - rabbitmq_sot_bind_address != rabbitmq_sot
