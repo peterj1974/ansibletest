@@ -13,12 +13,15 @@
     queue_user_password: "{{ lookup('file', '/tmp/morpheus-secrets.json') | from_json | json_query('rabbitmq.queue_user_password') }}"
     cookie: "{{ lookup('file', '/tmp/morpheus-secrets.json') | from_json | json_query('rabbitmq.cookie') }}"
   delegate_to: "{{ groups['morph'][0] }}"
+  run_once: true
 
 - debug:
     msg : 
     - '{{ morpheus_password }}'
     - '{{ queue_user_password }}'
     - '{{ cookie }}'
+  delegate_to: "{{ groups['morph'][0] }}"
+  run_once: true
 
 #- name: Set fact for RMQ SOT
 #  set_fact:
