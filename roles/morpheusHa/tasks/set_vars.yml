@@ -12,26 +12,28 @@
     morpheus_password: "{{ lookup('file', '/tmp/morpheus-secrets.json') | from_json | json_query('rabbitmq.morpheus_password') }}"
     queue_user_password: "{{ lookup('file', '/tmp/morpheus-secrets.json') | from_json | json_query('rabbitmq.queue_user_password') }}"
     cookie: "{{ lookup('file', '/tmp/morpheus-secrets.json') | from_json | json_query('rabbitmq.cookie') }}"
-  when:
-    - rabbitmq_sot_bind_address == rabbitmq_sot
+    run_once: true
+  #when:
+  #  - rabbitmq_sot_bind_address == rabbitmq_sot
 
 - debug:
     msg : 
     - '{{ morpheus_password }}'
     - '{{ queue_user_password }}'
     - '{{ cookie }}'
-  when:
-    - rabbitmq_sot_bind_address == rabbitmq_sot
+    run_once: true
+  #when:
+  #  - rabbitmq_sot_bind_address == rabbitmq_sot
 
-- name: Update morpheus-secrets.json
-  become: true
-  replace:
-    path: /etc/morpheus/morpheus-secrets.json
-    regexp: '{{ item.regexp }}'
-    replace: '{{ item.replace }}'
-  loop:
-    - { regexp: '("morpheus_password": )"[^"]+"', replace: '"morpheus_password": "{{ morpheus_password }}"' }
-    - { regexp: '("queue_user_password": )"[^"]+"', replace: '"queue_user_password": "{{ queue_user_password }}"' }
-    - { regexp: '("cookie": )"[^"]+"', replace: '"cookie": "value3"' }
-  when:
-    - rabbitmq_sot_bind_address == rabbitmq_sot
+#- name: Update morpheus-secrets.json
+#  become: true
+#  replace:
+#    path: /etc/morpheus/morpheus-secrets.json
+#    regexp: '{{ item.regexp }}'
+#    replace: '{{ item.replace }}'
+#  loop:
+#    - { regexp: '("morpheus_password": )"[^"]+"', replace: '"morpheus_password": "{{ morpheus_password }}"' }
+#    - { regexp: '("queue_user_password": )"[^"]+"', replace: '"queue_user_password": "{{ queue_user_password }}"' }
+#    - { regexp: '("cookie": )"[^"]+"', replace: '"cookie": "value3"' }
+#  when:
+#    - rabbitmq_sot_bind_address == rabbitmq_sot
