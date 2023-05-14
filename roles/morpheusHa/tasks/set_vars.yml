@@ -7,14 +7,12 @@
     msg: "{{ item }} is not running. End of play."
   loop: "{{ groups['morph'] }}"  
 
-#- name: Print var
-#  vars:
-#    pete: jones
-#  
-#  tasks:
-#    - name: Print variable
-#      debug:
-#        var: pete
+- name: Set fact for RMQ SOT
+  set_fact:
+    pete: "jones"
+
+- debug
+    msg : "SOT is '{{ pete }}'"
 
 #- name: Set RabbitMQ variables from config file
 #  vars:
