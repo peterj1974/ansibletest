@@ -33,6 +33,6 @@
   loop:
     - { regexp: '("morpheus_password": )"[^"]+"', replace: '"morpheus_password": "{{ morpheus_password }}"' }
     - { regexp: '("queue_user_password": )"[^"]+"', replace: '"queue_user_password": "{{ queue_user_password }}"' }
-    - { regexp: '("cookie": )"[^"]+"', replace: '"cookie": "value3"' }
+    - { regexp: '("cookie": )"[^"]+"', replace: '"cookie": "{{ cookie}}"' }
   when:
     - rabbitmq_sot_bind_address != rabbitmq_sot
