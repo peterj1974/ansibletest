@@ -1,8 +1,12 @@
 ---
-- name: Pete Test
+- name: Print var
   vars:
-    pete: "jones"
-    
+      pete: jones
+  
+  tasks:
+    - name: Print variable
+      debug:
+        var: pete
 
 #- name: Set RabbitMQ variables from config file
 #  vars:
