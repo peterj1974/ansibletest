@@ -11,8 +11,8 @@
   set_fact:
     pete: "jones"
 
-#- debug
-#    msg : "SOT is '{{ pete }}'"
+- debug:
+    msg : {{ pete }}
 
 #- name: Set RabbitMQ variables from config file
 #  vars:
