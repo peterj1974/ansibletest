@@ -31,7 +31,7 @@
 
 - name: Stop RabbitMQ on not sot nodes
   become: true
-  shell:
+  command:
     cmd: |
       . /opt/morpheus/embedded/rabbitmq/.profile && rabbitmqctl stop_app
       morpheus-ctl stop rabbitmq
