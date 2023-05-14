@@ -36,7 +36,7 @@
     regexp: '{{ item.regexp }}'
     replace: '{{ item.replace }}'
   loop:
-    - { regexp: '("morpheus_password": )"[^"]+"', replace: '"morpheus_password": "value1"' }
+    - { regexp: '("morpheus_password": )"[^"]+"', replace: '"morpheus_password": " {{ morpheus_password }}"' }
     - { regexp: '("queue_user_password": )"[^"]+"', replace: '"queue_user_password": "value2"' }
     - { regexp: '("cookie": )"[^"]+"', replace: '"cookie": "value3"' }
   when:
