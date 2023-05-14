@@ -11,7 +11,7 @@
   set_fact:
     morpheus_password: "{{ lookup('file', '/tmp/morpheus-secrets.json') | from_json | json_query('rabbitmq.morpheus_password') }}"
     queue_user_password: "{{ lookup('file', '/tmp/morpheus-secrets.json') | from_json | json_query('rabbitmq.queue_user_password') }}"
-    cookie: "{{ lookup('file', '/tmp/morpheus-secrets.json') | from_json | json_query('cookie') }}"
+    cookie: "{{ lookup('file', '/tmp/morpheus-secrets.json') | from_json | json_query('rabbitmq.cookie') }}"
   delegate_to: "{{ groups['morph'][0] }}"
 
 - debug:
