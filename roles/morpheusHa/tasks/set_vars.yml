@@ -40,4 +40,4 @@
     - { regexp: '("queue_user_password": )"[^"]+"', replace: '"queue_user_password": "{{ queue_user_password }}",' }
     - { regexp: '("cookie": )"[^"]+"', replace: '"cookie": "{{ cookie }}"' }
   when:
-    - rabbitmq_sot_bind_address !== rabbitmq_sot
+    - rabbitmq_sot_bind_address != rabbitmq_sot
