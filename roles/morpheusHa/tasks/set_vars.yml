@@ -1,15 +1,18 @@
 --- 
+- name: Get data
+  fetch:
+    src: /etc/morpheus/morpheus-secrets.json
+    dest: /tmp/morpheus-secrets.json
+    flat: yes
+  delegate_to: "{{ groups[morph][0] }}"
+  run_once: true
+
 #- name: Set fact for RMQ SOT
 #  set_fact:
 #    pete: "jones"
 #
 #- debug:
 #    msg : '{{ pete }}'
-
-- name: Set RabbitMQ variables from config file
-  set_fact:
-    rabbitmq_config: "{{ lookup('file', '/etc/morpheus/morpheus-secrets.json') | from_json }}"
-    morpheus_password: "{{ rabbitmq_config.rabbitmq.morpheus_password }}"
 
 #- name: Set RabbitMQ variables from config file
 #  set_fact:
