@@ -1,10 +1,10 @@
 --- 
-#- name: Get data
-#  fetch:
-#    src: /etc/morpheus/morpheus-secrets.json
-#    dest: /tmp/morpheus-secrets.json
-#    flat: yes
-#  delegate_to: "{{ groups['morph'][0] }}"
+- name: Get data
+  fetch:
+    src: /etc/morpheus/morpheus-secrets.json
+    dest: /tmp/morpheus-secrets.json
+    flat: yes
+  delegate_to: "{{ groups['morph'][0] }}"
 
 - name: Set fact for morpheus_password
   set_fact:
