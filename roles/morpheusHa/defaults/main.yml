@@ -69,3 +69,6 @@ morpheus_db_port: 3306
 morpheus_db_use_tls: false
 morpheus_db_url_override: false
 morpheus_db_url_override_options: ""
+
+rabbitmq_sot: "{{ hostvars[ groups['db'][0] ].ansible_eth0.ipv4.address }}"
+rabbitmq_sot_bind_address: "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
