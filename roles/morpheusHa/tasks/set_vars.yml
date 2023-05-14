@@ -6,7 +6,7 @@
     queue_user_password: "{{ rabbitmq_config.rabbitmq.queue_user_password }}"
     cookie: "{{ rabbitmq_config.rabbitmq.cookie }}"
   delegate_to:"{{groups[morph][0]}}"
-  run_one: true
+  run_once: true
 
 - name: Print RabbitMQ variables
   debug:
