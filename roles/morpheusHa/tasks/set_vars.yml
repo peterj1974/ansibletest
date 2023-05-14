@@ -1,19 +1,24 @@
 ---
-- name: Set RabbitMQ variables from config file
+- name: Pete Test
   vars:
-    rabbitmq_config: "{{ lookup('file', '/etc/morpheus/morpheus-secrets.json') | from_json }}"
-    morpheus_password: "{{ rabbitmq_config.rabbitmq.morpheus_password }}"
-    queue_user_password: "{{ rabbitmq_config.rabbitmq.queue_user_password }}"
-    cookie: "{{ rabbitmq_config.rabbitmq.cookie }}"
-  delegate_to: "{{ groups[morph][0] }}"
-  run_once: true
+    pete: "jones"
+    
 
-- name: Print RabbitMQ variables
-  debug:
-    vars:
-      cookie: "{{ cookie }}"
-      morpheus_password: "{{ morpheus_password }}"
-      queue_user_password: "{{ queue_user_password }}"
+#- name: Set RabbitMQ variables from config file
+#  vars:
+#    rabbitmq_config: "{{ lookup('file', '/etc/morpheus/morpheus-secrets.json') | from_json }}"
+#    morpheus_password: "{{ rabbitmq_config.rabbitmq.morpheus_password }}"
+#    queue_user_password: "{{ rabbitmq_config.rabbitmq.queue_user_password }}"
+#    cookie: "{{ rabbitmq_config.rabbitmq.cookie }}"
+#  delegate_to: "{{ groups[morph][0] }}"
+#  run_once: true
+#
+#- name: Print RabbitMQ variables
+#  debug:
+#    vars:
+#      cookie: "{{ cookie }}"
+#      morpheus_password: "{{ morpheus_password }}"
+#      queue_user_password: "{{ queue_user_password }}"
 
 #- name: Update morpheus-secrets.json
 #  become: true
