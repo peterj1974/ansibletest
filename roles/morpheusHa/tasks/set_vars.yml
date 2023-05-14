@@ -21,7 +21,6 @@
     - '{{ morpheus_password }}'
     - '{{ queue_user_password }}'
     - '{{ cookie }}'
-    run_once: true
   #when:
   #  - rabbitmq_sot_bind_address == rabbitmq_sot
 
