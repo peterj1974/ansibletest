@@ -1,19 +1,4 @@
 --- 
-- name: check elastic
-  wait_for:
-    port: 9300
-    host: "{{ item }}"
-    timeout: 5
-    msg: "{{ item }} is not running. End of play."
-  loop: "{{ groups['morph'] }}"  
-
-- name: Set var
-  vars:
-    pete: "jones"
-
-- debug:
-    msg : '{{ pete }}'
-
 #- name: Set fact for RMQ SOT
 #  set_fact:
 #    pete: "jones"
@@ -21,14 +6,14 @@
 #- debug:
 #    msg : '{{ pete }}'
 
-#- name: Set RabbitMQ variables from config file
-#  vars:
-#    rabbitmq_config: "{{ lookup('file', '/etc/morpheus/morpheus-secrets.json') | from_json }}"
-#    morpheus_password: "{{ rabbitmq_config.rabbitmq.morpheus_password }}"
-#    queue_user_password: "{{ rabbitmq_config.rabbitmq.queue_user_password }}"
-#    cookie: "{{ rabbitmq_config.rabbitmq.cookie }}"
-#  delegate_to: "{{ groups[morph][0] }}"
-#  run_once: true
+- name: Set RabbitMQ variables from config file
+  set_fact:
+    rabbitmq_config: "{{ lookup('file', '/etc/morpheus/morpheus-secrets.json') | from_json }}"
+    morpheus_password: "{{ rabbitmq_config.rabbitmq.morpheus_password }}"
+    queue_user_password: "{{ rabbitmq_config.rabbitmq.queue_user_password }}"
+    cookie: "{{ rabbitmq_config.rabbitmq.cookie }}"
+  delegate_to: "{{ groups[morph][0] }}"
+  run_once: true
 #
 #- name: Print RabbitMQ variables
 #  debug:
