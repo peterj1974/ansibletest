@@ -15,9 +15,10 @@
   delegate_to: "{{ groups['morph'][0] }}"
 
 - debug:
-    msg : '{{ morpheus_password }}'
-    msg : '{{ queue_user_password }}'
-    msg : '{{ cookie }}'
+    msg : 
+    - '{{ morpheus_password }}'
+    - '{{ queue_user_password }}'
+    - '{{ cookie }}'
 
 #- name: Set fact for RMQ SOT
 #  set_fact:
