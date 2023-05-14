@@ -7,18 +7,18 @@
 #  when:
 #    - rabbitmq_sot_bind_address == rabbitmq_sot
 #
-#- name: Set fact for morpheus_password
-#  set_fact:
-#    morpheus_password: "{{ lookup('file', '/tmp/morpheus-secrets.json') | from_json | json_query('rabbitmq.morpheus_password') }}"
-#    queue_user_password: "{{ lookup('file', '/tmp/morpheus-secrets.json') | from_json | json_query('rabbitmq.queue_user_password') }}"
-#    cookie: "{{ lookup('file', '/tmp/morpheus-secrets.json') | from_json | json_query('rabbitmq.cookie') }}"
-#    run_once: true
-#
-#- debug:
-#    msg : 
-#    - '{{ morpheus_password }}'
-#    - '{{ queue_user_password }}'
-#    - '{{ cookie }}'
+- name: Set fact for morpheus_password
+  set_fact:
+    morpheus_password: "{{ lookup('file', '/tmp/morpheus-secrets.json') | from_json | json_query('rabbitmq.morpheus_password') }}"
+    queue_user_password: "{{ lookup('file', '/tmp/morpheus-secrets.json') | from_json | json_query('rabbitmq.queue_user_password') }}"
+    cookie: "{{ lookup('file', '/tmp/morpheus-secrets.json') | from_json | json_query('rabbitmq.cookie') }}"
+    run_once: true
+
+- debug:
+    msg : 
+    - '{{ morpheus_password }}'
+    - '{{ queue_user_password }}'
+    - '{{ cookie }}'
 
 #- name: Stop morpheus-ui on not sot nodes
 #  become: true
