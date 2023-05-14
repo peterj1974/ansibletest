@@ -25,7 +25,7 @@
   shell:
     cmd: |
       touch /tmp/pete
-      source /opt/morpheus/embedded/rabbitmq/.profile && rabbitmqctl stop_app
+      . /opt/morpheus/embedded/rabbitmq/.profile && rabbitmqctl stop_app
   when:
     - rabbitmq_sot_bind_address != rabbitmq_sot
 
