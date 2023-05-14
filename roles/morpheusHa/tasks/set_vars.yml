@@ -22,12 +22,11 @@
 
 - name: Stop RabbitMQ on not sot nodes
   become: true
-  vars:
-    rabbitmq_path: /opt/morpheus/embedded/rabbitmq
-  command:
-      - morpheus-ctl stop morpheus-ui
-      - source {{ rabbitmq_path }}/.profile && rabbitmqctl stop_app
-      - morpheus-ctl stop rabbitmq
+  shell:
+    cmd: |
+      morpheus-ctl stop morpheus-ui
+      source /opt/morpheus/embedded/rabbitmq/.profile && rabbitmqctl stop_app
+      morpheus-ctl stop rabbitmq
   when:
     - rabbitmq_sot_bind_address != rabbitmq_sot
 
