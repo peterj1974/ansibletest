@@ -6,12 +6,9 @@
 #    flat: yes
 #  delegate_to: "{{ groups['morph'][0] }}"
 
-- name: Set RabbitMQ variables from config file
+- name: Set fact for morpheus_password
   set_fact:
-    rabbitmq_config: "{{ lookup('file', '/tmp/morpheus-secrets.json') | from_json }}"
-    morpheus_password: "{{ rabbitmq_config.rabbitmq.morpheus_password }}"
-    queue_user_password: "{{ rabbitmq_config.rabbitmq.queue_user_password }}"
-    cookie: "{{ rabbitmq_config.rabbitmq.cookie }}"
+    morpheus_password: "{{ lookup('file', '/tmp/morpheus-secrets.json') | from_json | json_query('rabbitmq.morpheus_password') }}"
   delegate_to: "{{ groups['morph'][0] }}"
 
 - debug:
