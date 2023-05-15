@@ -15,11 +15,11 @@
 
 #- include_tasks: morpheus_rabbitmq_cluster.yml
 
-- debug:
-    var: rabbitmq_sot_bind_address
-
-- debug:
-    var: rabbitmq_sot
+#- debug:
+#    var: rabbitmq_sot_bind_address
+#
+#- debug:
+#    var: rabbitmq_sot
 
 - include_tasks: set_vars.yml
 
