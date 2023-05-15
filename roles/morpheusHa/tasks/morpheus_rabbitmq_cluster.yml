@@ -80,13 +80,17 @@
   when:
     - rabbitmq_sot_bind_address == rabbitmq_sot
 
-- name: Extract nodename from configuration
-  set_fact:
-    rabbitmq_nodename: "{{ (rb_file_content['content'] | b64decode | regex_search('rabbitmq\\[\'nodename\'\\]\\s*=\\s*\'([^\']*)\'', '\\1')).strip() }}"
-
 - name: Print nodename
   debug:
-    var: rabbitmq_nodename
+    var: rb_file_content
+
+#- name: Extract nodename from configuration
+#  set_fact:
+#    rabbitmq_nodename: "{{ (rb_file_content['content'] | b64decode | regex_search('rabbitmq\\[\'nodename\'\\]\\s*=\\s*\'([^\']*)\'', '\\1')).strip() }}"
+#
+#- name: Print nodename
+#  debug:
+#    var: rabbitmq_nodename
 
 
 
