@@ -1,25 +1,16 @@
 ---
-# Sanity Checks
-
-#- include_tasks: morpheus_sanity_checks.yml
-
-#- include_tasks: morpheus_packages_centos.yml
-#  when: ansible_os_family == 'RedHat'
-
-#- include_tasks: morpheus_packages_ubuntu.yml
-#  when: ansible_os_family == 'Debian'
+- include_tasks: morpheus_packages_ubuntu.yml
+  when: ansible_os_family == 'Debian'
 
 - include_tasks: morpheus_configure.yml
 
 - include_tasks: morpheus_check_elastic.yml
 
-#- include_tasks: morpheus_rabbitmq_cluster.yml
+- debug:
+    var: rabbitmq_sot_bind_address
 
-#- debug:
-#    var: rabbitmq_sot_bind_address
-#
-#- debug:
-#    var: rabbitmq_sot
+- debug:
+    var: rabbitmq_sot
 
 - include_tasks: morpheus_rabbitmq_cluster.yml
 
