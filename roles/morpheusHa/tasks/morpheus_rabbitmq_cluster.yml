@@ -73,6 +73,8 @@
 #  when:
 #    - rabbitmq_sot_bind_address != rabbitmq_sot
 
+####### Trying to get SOT node name so can join cluster
+####### This has load of info https://github.com/gomorpheus/ansible-role-rabbitmq-cluster/blob/master/tasks/rabbitmq_clustering_centos.yml
 - name: Get the SOT node name
   slurp:
     src: /etc/morpheus/morpheus.rb
