@@ -33,9 +33,7 @@
 - name: Stop morpheus-ui on not sot nodes
   become: true
   shell:
-    cmd: |
-      morpheus-ctl stop morpheus-ui
-      . /opt/morpheus/embedded/rabbitmq/.profile && rabbitmqctl stop_app
+    cmd: morpheus-ctl stop morpheus-ui
   when:
     - rabbitmq_sot_bind_address != rabbitmq_sot
 
