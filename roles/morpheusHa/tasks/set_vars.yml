@@ -6,6 +6,13 @@
 - debug:
     var: ipv4_addresses
 
+- name: Sort IPv4 addresses
+  set_fact:
+    sorted_ipv4_addresses: "{{ ipv4_addresses | sort }}"
+  
+- debug:
+    var: sorted_ipv4_addresses
+
 #- name: Get morpheus-secrets.json file
 #  fetch:
 #    src: /etc/morpheus/morpheus-secrets.json
