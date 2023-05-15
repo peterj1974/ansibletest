@@ -3,7 +3,6 @@
   command: morpheus-ctl reconfigure
   args:
     creates: /etc/morpheus/morpheus-secrets.json
-  async: 900
   poll: 10
   delegate_to: "{{ item }}"
   loop: "{{ groups[morpheus_group] }}"
