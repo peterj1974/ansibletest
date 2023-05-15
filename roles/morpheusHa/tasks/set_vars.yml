@@ -8,7 +8,7 @@
 
 - name: Sort IPv4 addresses
   set_fact:
-    sorted_ipv4_addresses: "{{ ipv4_addresses | sort }}"
+    sorted_ipv4_addresses: "{{ ipv4_addresses | sort | first }}"
   
 - debug:
     var: sorted_ipv4_addresses
