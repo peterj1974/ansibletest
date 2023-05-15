@@ -6,7 +6,7 @@
 - debug:
     var: rabbitmq_sot
 
--debug:
+- debug:
     var: rabbitmq_sot_bind_address
 
 #- name: Get morpheus-secrets.json file
