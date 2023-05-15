@@ -1,17 +1,17 @@
 --- 
 - name: Get IP addresses of hosts in morph groups
   set_fact:
-    ipv4_addresses: "{{ groups['morph'] | map('extract', hostvars, ['ansible_eth0', 'ipv4', 'address']) | list }}"
+    ipv4_addresses: "{{ groups['morph'] | map('extract', hostvars, ['ansible_eth0', 'ipv4', 'address']) | list | sort | first}}"
 
 - debug:
     var: ipv4_addresses
 
-- name: Sort IPv4 addresses
-  set_fact:
-    sorted_ipv4_addresses: "{{ ipv4_addresses | sort | first }}"
-  
-- debug:
-    var: sorted_ipv4_addresses
+#- name: Sort IPv4 addresses
+#  set_fact:
+#    sorted_ipv4_addresses: "{{ ipv4_addresses | sort | first }}"
+#  
+#- debug:
+#    var: sorted_ipv4_addresses
 
 #- name: Get morpheus-secrets.json file
 #  fetch:
