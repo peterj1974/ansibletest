@@ -69,7 +69,6 @@
 
 - name: Run morpheus-ctl reconfigure on not sot nodes
   command: morpheus-ctl reconfigure
-  async: 900
   poll: 10
   when:
     - rabbitmq_sot_bind_address != rabbitmq_sot
