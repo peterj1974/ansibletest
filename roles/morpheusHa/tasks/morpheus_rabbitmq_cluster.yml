@@ -85,6 +85,7 @@
 #    - rabbitmq_sot_bind_address != rabbitmq_sot
 
 - name: Stop RabbitMQ
+  become: true
   command: morpheus_ctl stop rabbitmq
   ignore_errors: true
 
