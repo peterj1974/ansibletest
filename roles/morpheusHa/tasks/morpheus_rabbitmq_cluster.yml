@@ -84,12 +84,16 @@
 #  when:
 #    - rabbitmq_sot_bind_address != rabbitmq_sot
 
-- name: Stop and start RabbitMQ on not sot nodes and add node to cluster
-  become: true
-  shell:
-    cmd: |
-      morpheus-ctl stop rabbitmq || /bin/true
-      morpheus-ctl start rabbitmq
-      . /opt/morpheus/embedded/rabbitmq/.profile && rabbitmqctl stop_app
-  when:
-    - rabbitmq_sot_bind_address != rabbitmq_sot
+- name: Stop RabbitMQ
+  command: morpheus_ctl stop rabbitmq
+  ignore_errors: true
+
+#- name: Stop and start RabbitMQ on not sot nodes and add node to cluster
+#  become: true
+#  shell:
+#    cmd: |
+#      morpheus-ctl stop rabbitmq || /bin/true
+#      morpheus-ctl start rabbitmq
+#      . /opt/morpheus/embedded/rabbitmq/.profile && rabbitmqctl stop_app
+#  when:
+#    - rabbitmq_sot_bind_address != rabbitmq_sot
