@@ -1,7 +1,8 @@
 --- 
 - name: Sort hosts by IP address
   set_fact:
-    sorted_hosts: "{{ groups['morph'] | sort(attribute='ansible_default_ipv4.address') }}"
+    #sorted_hosts: "{{ groups['morph'] | sort(attribute='ansible_default_ipv4.address') }}"
+    sorted_hosts: "{{ groups['morph'] | map('extract', hostvars, ['ansible_eth0', 'ipv4', 'address']) | list | sort}}"
 
 - name: Get IP address and hostname of the first host
   debug:
@@ -9,3 +10,4 @@
     var: hostvars[first_host]['ansible_hostname']
   vars:
     first_host: "{{ sorted_hosts | first }}"
+
