@@ -10,7 +10,7 @@
     var: rabbitmq_sot_bind_address
 
 - debug:
-    var: ansible_eth0
+    var: ansible_eth0.ipv4.address
 #- name: Get hostname
 #  debug:
 #    var: sot_name
