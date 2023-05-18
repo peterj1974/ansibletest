@@ -96,19 +96,20 @@
 #  when:
 #    - rabbitmq_sot_bind_address != rabbitmq_sot
 
-- name: Stop RabbitMQ App
-  become: true
-  command: . /opt/morpheus/embedded/rabbitmq/.profile && rabbitmqctl stop_app
-  ignore_errors: true
-  when:
-    - rabbitmq_sot_bind_address != rabbitmq_sot
-
+#THIS TASK FAILS WITH PERMISSION DENIED
 #- name: Stop RabbitMQ App
 #  become: true
-#  shell:
-#    cmd: . /opt/morpheus/embedded/rabbitmq/.profile && rabbitmqctl stop_app
+#  command: . /opt/morpheus/embedded/rabbitmq/.profile && rabbitmqctl stop_app
+#  ignore_errors: true
 #  when:
 #    - rabbitmq_sot_bind_address != rabbitmq_sot
+
+- name: Stop RabbitMQ App
+  become: true
+  shell:
+    cmd: . /opt/morpheus/embedded/rabbitmq/.profile && rabbitmqctl stop_app
+  when:
+    - rabbitmq_sot_bind_address != rabbitmq_sot
 
 #- name: Stop RabbitMQ App
 #- name: Stop and start RabbitMQ on not sot nodes and add node to cluster
