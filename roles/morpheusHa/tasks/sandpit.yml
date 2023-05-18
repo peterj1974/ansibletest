@@ -1,7 +1,9 @@
 --- 
 - name: Sort Hosts
   set_fact:
-    sorted_hosts: "{{ groups['morph'] | map('extract', hostvars, ['ansible_eth0', 'ipv4', 'address']) | list | sort}}"
+    #sorted_hosts: "{{ groups['morph'] | map('extract', hostvars, ['ansible_eth0', 'ipv4', 'address']) | list | sort}}"
+    sorted_hosts: "{{ groups['morph'] | sort(attribute='ansible_default_ipv4.address') }}"
+
 
 - name: Lookup hostname of first host
   set_fact:
