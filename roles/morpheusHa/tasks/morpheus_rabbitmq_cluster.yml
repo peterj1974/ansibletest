@@ -97,6 +97,7 @@
 #    - rabbitmq_sot_bind_address != rabbitmq_sot
 
 - name: Stop RabbitMQ App
+  become: true
   command: . /opt/morpheus/embedded/rabbitmq/.profile && rabbitmqctl stop_app
   ignore_errors: true
   when:
