@@ -7,4 +7,4 @@
   debug:
     msg: "Hostname: {{ hostvars[first_host]['ansible_hostname'] }}, IP Address: {{ hostvars[first_host]['ansible_default_ipv4']['address'] }}"
   vars:
-    first_host: "{{ sorted_hosts | first }}
+    first_host: "{{ sorted_hosts | first }}"
