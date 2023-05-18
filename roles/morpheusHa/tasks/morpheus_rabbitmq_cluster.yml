@@ -9,6 +9,11 @@
 - debug:
     var: rabbitmq_sot_bind_address
 
+- name: Get hostname
+  debug:
+    var: sot_name
+  when: ansible_eth0_ipv4.address == "{{ rabbitmq_sot }}"
+
 #- name: Get morpheus-secrets.json file
 #  fetch:
 #    src: /etc/morpheus/morpheus-secrets.json
@@ -75,16 +80,16 @@
 
 ####### Trying to get SOT node name so can join cluster
 ####### This has load of info https://github.com/gomorpheus/ansible-role-rabbitmq-cluster/blob/master/tasks/rabbitmq_clustering_centos.yml
-- name: Get the SOT node name
-  slurp:
-    src: /etc/morpheus/morpheus.rb
-  register: rb_file_content
-  when:
-    - rabbitmq_sot_bind_address == rabbitmq_sot
-
-- name: Print nodename
-  debug:
-    var: rb_file_content
+#- name: Get the SOT node name
+#  slurp:
+#    src: /etc/morpheus/morpheus.rb
+#  register: rb_file_content
+#  when:
+#    - rabbitmq_sot_bind_address == rabbitmq_sot
+#
+#- name: Print nodename
+#  debug:
+#    var: rb_file_content
 
 #- name: Extract nodename from configuration
 #  set_fact:
