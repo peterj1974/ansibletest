@@ -87,6 +87,8 @@
 - name: Stop RabbitMQ
   command: morpheus-ctl stop rabbitmq
   ignore_errors: true
+  when:
+    - rabbitmq_sot_bind_address != rabbitmq_sot
 
 #- name: Stop and start RabbitMQ on not sot nodes and add node to cluster
 #  become: true
