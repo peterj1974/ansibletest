@@ -12,13 +12,13 @@
 - debug:
     var: ansible_eth0.ipv4.address
 
-- name: Get hostname
-  set_fact:
-    sot_name: "{{ ansible_hostname }}""
-  when: ansible_eth0.ipv4.address == "{{ rabbitmq_sot }}"
+#- name: Get hostname
+#  set_fact:
+#    sot_name: "{{ ansible_hostname }}""
+#  when: ansible_eth0.ipv4.address == "{{ rabbitmq_sot }}"
 
 - debug:
-    var: sot_name
+    var: ansible_hostname
 
 #- name: Get morpheus-secrets.json file
 #  fetch:
