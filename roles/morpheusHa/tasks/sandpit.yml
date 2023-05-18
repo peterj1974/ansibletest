@@ -1,32 +1,10 @@
 --- 
-- name: Get first IP address of host in the morph group. This will be our SOT node for RabbitMQ clustering
+- name: Sort hosts by IP address
   set_fact:
-    rabbitmq_sot: "{{ groups['morph'] | map('extract', hostvars, ['ansible_eth0', 'ipv4', 'address']) | list | sort | first}}"
+    sorted_hosts: "{{ groups['morph'] | map('extract', hostvars, ['ansible_default_ipv4', 'address']) | sort }}"
 
-- debug:
-    var: rabbitmq_sot
-
-- debug:
-    var: rabbitmq_sot_bind_address
-
-- debug:
-    var: ansible_eth0.ipv4.address
-
-- debug:
-    var: ansible_hostname
-
-- name: Get hostname of the SOT node
-  set_fact:
-    rabbitmq_sot_name: "{{ ansible_hostname }}"
-  when: ansible_eth0.ipv4.address == "{{ rabbitmq_sot }}"
-
-- debug:
-    var: rabbitmq_sot_name
-
-- name: Get hostname
-  set_fact:
-    #rabbitmq_sot_hostname: "{{ hostvars[rabbitmq_sot][ansible_hostname] }}"
-    rabbitmq_sot_hostname: "{{ hostvars['ansible_eth0', 'ipv4', 'address'][ansible_hostname] }}"
-- debug:
-    var: rabbitmq_sot_hostname
-
+- name: Get hostname and IP address of the first host
+  debug:
+    msg: "Hostname: {{ hostvars[first_host]['ansible_hostname'] }}, IP Address: {{ hostvars[first_host]['ansible_default_ipv4']['address'] }}"
+  vars:
+    first_host: "{{ sorted_hosts | first }}
