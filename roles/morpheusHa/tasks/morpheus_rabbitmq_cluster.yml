@@ -18,7 +18,7 @@
 - name: Get hostname of the SOT node
   set_fact:
     rabbitmq_sot_name: "{{ ansible_hostname }}"
-  #when: ansible_eth0.ipv4.address == "{{ rabbitmq_sot }}"
+  when: ansible_eth0.ipv4.address == "{{ rabbitmq_sot }}"
 
 - debug:
     var: rabbitmq_sot_name
