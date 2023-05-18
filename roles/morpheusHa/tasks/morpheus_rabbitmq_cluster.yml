@@ -88,7 +88,7 @@
   become: true
   shell:
     cmd: |
-      morpheus-ctl stop rabbitmq
+      morpheus-ctl stop rabbitmq || /bin/true
       morpheus-ctl start rabbitmq
       . /opt/morpheus/embedded/rabbitmq/.profile && rabbitmqctl stop_app
   when:
