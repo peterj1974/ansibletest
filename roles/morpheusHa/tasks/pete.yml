@@ -1,5 +1,15 @@
 ---
-- name: Create a file and write hostname to it
+- name: Get first IP address of the host in the morph group. This will be our source of truth (SOT) node for RabbitMQ clustering
+  set_fact:
+    rabbitmq_sot_ip: "{{ groups['morph'] | map('extract', hostvars, ['ansible_eth0', 'ipv4', 'address']) | list | sort | first}}"
+
+- debug:
+    var: rabbitmq_sot_ip
+
+- debug:
+    var: rabbitmq_sot_bind_address
+
+- name: Create a file on each morpehus node and write the hostname to it
   block:
     - name: Touch file  
       file:
@@ -11,17 +21,18 @@
         path: /tmp/hostname
         line: "{{ ansible_hostname }}"
 
+- name: Get the /tmp/hostname file from the SOT node and store it on the ansible server
+  fetch:
+    src: /tmp/hostname
+    dest: /tmp/hostname
+    flat: yes
+  when:
+    - rabbitmq_sot_bind_address == rabbitmq_sot_ip
 
+- name: Set fact for the SOT hostname
+  set_fact:
+    rabbitmq_sot_host: "{{ lookup('file', '/tmp/hostname') }}"
+    run_once: true
 
-#- name: Get first IP address of host in the morph group. This will be our SOT node for RabbitMQ clustering
-#  set_fact:
-#    rabbitmq_sot: "{{ groups['morph'] | map('extract', hostvars, ['ansible_eth0', 'ipv4', 'address']) | list | sort | first}}"
-#
-#- debug:
-#    var: rabbitmq_sot
-#
-#- name: Get hostname of the SOT node
-#  set_fact:
-#    rabbitmq_sot_name: "{{ ansible_hostname }}"
-#  when: ansible_eth0.ipv4.address == "{{ rabbitmq_sot }}"
-#
+- debug:
+    msg : "{{ rabbitmq_sot_host }}"
