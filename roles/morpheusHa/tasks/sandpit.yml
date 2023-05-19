@@ -1,11 +1,14 @@
 --- 
 - name: SOT IP Address
   set_fact:
-    rabbitmq_sot: "{{ hostvars[ groups['morph'][0] ].ansible_eth0.ipv4.address }}"
+    rabbitmq_sot_ip: "{{ hostvars[ groups['morph'][0] ].ansible_eth0.ipv4.address }}"
 
 - debug:
-    var: rabbitmq_sot
+    var: rabbitmq_sot_ip
 
+- name: SOT hostname
+  set_fact:
+    rabbitmq_sot_host: "{{ hostvars[ groups['morph'][0] ].ansible_hostname }}"
 
 #- name: Get first IP address of host in the morph group. This will be our SOT node for RabbitMQ clustering
 #  set_fact:
