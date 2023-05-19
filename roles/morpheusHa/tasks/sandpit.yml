@@ -20,14 +20,15 @@
     rabbitmq_sot_name: "{{ ansible_hostname }}"
   when: ansible_eth0.ipv4.address == "{{ rabbitmq_sot }}"
 
-- name: Set fact on every host
-  set_fact:
-    myvar: "{{ rabbitmq_sot_name }}"
-  delegate_to: "{{ item }}"
-  with_items: "{{ play_hosts }}"
-  run_once: true
+- name: Write SOT hostname to a file
+  file:
+    path: /var/tmp/sot
+    state: touch
+  when: ansible_eth0.ipv4.address == "{{ rabbitmq_sot }}"
 
-- debug:
-    msg: "{{ myvar }}"
+- name: Write fact to file
+  lineinfile:
+    path: /var/tmp/sot
+    line: "{{ rabbitmq_sot_name }}"
 
     
