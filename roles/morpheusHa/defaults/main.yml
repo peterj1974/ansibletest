@@ -61,7 +61,7 @@ morpheus_elastic_ca_file: ""
 
 morpheus_mysql_external: true
 morpheus_db_group: db
-morpheus_db_host: "{'172.100.0.56' => 3306, '172.100.0.32' => 3306, '172.100.0.8' => 3306}"
+morpheus_db_host: "{'172.100.0.23' => 3306, '172.100.0.32' => 3306, '172.100.0.27' => 3306}"
 morpheus_db: morpheus
 morpheus_db_user: morpheus
 morpheus_db_pass: Password123?
