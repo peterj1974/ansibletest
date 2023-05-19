@@ -15,13 +15,17 @@
 - debug:
     var: rabbitmq_sot
 
+- name: Get hostname of the SOT node
+  set_fact:
+    rabbitmq_sot_name: "{{ ansible_hostname }}"
+  when: ansible_eth0.ipv4.address == "{{ rabbitmq_sot }}"
+
 - name: Set fact on every host
   set_fact:
-    myvar: "{{ ansible_hostname }}"
+    myvar: "{{ rabbitmq_sot_name }}"
   delegate_to: "{{ item }}"
   with_items: "{{ play_hosts }}"
   run_once: true
-  when: ansible_eth0.ipv4.address == "{{ rabbitmq_sot }}"
 
 - debug:
     msg: "{{ myvar }}"
