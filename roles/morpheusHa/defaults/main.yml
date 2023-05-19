@@ -25,13 +25,13 @@ morpheus_setup_admin_lastname: admin
 morpheus_setup_enable_backups: true
 morpheus_setup_enable_monitoring: true
 morpheus_setup_enable_logs: true
-morpheus_setup_hub_mode: register
-morpheus_setup_hub_email: "pjtest1902@gmail.com"
-morpheus_setup_hub_password: "Password123?Spir1fer"
-morpheus_setup_hub_firstname: "Pete"
-morpheus_setup_hub_lastname: "Jones"
-morpheus_setup_hub_jobtitle: "Engineer"
-morpheus_setup_hub_companyname: "Morph"
+morpheus_setup_hub_mode: skip
+morpheus_setup_hub_email: ""
+morpheus_setup_hub_password: ""
+morpheus_setup_hub_firstname: ""
+morpheus_setup_hub_lastname: ""
+morpheus_setup_hub_jobtitle: ""
+morpheus_setup_hub_companyname: ""
 
 morpheus_group: morph
 
@@ -61,7 +61,7 @@ morpheus_elastic_ca_file: ""
 
 morpheus_mysql_external: true
 morpheus_db_group: db
-morpheus_db_host: "{'172.100.0.53' => 3306, '172.100.0.56' => 3306, '172.100.0.5' => 3306}"
+morpheus_db_host: "{'172.100.0.16' => 3306, '172.100.0.18' => 3306, '172.100.0.52' => 3306}"
 morpheus_db: morpheus
 morpheus_db_user: morpheus
 morpheus_db_pass: Password123?
