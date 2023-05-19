@@ -13,7 +13,7 @@ morpheus_disable_rpm_gpg_check: true
 morpheus_use_offline_package: false
 morpheus_validate_certs: false
 
-morpheus_setup: false
+morpheus_setup: true
 morpheus_setup_appliance_name: Morpheus
 morpheus_setup_appliance_url: "{{ morpheus_appliance_url }}"
 morpheus_setup_master_tenant: Morpheus
