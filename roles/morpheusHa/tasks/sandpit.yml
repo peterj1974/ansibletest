@@ -8,6 +8,12 @@
 #    msg: "Hostname: {{ hostvars[first_host]['ansible_hostname'] }}, IP Address: {{ hostvars[first_host]['ansible_default_ipv4']['address'] }}"
 #  vars:
 #    first_host: "{{ sorted_hosts | first }}"
+- name: Get first IP address of host in the morph group. This will be our SOT node for RabbitMQ clustering
+  set_fact:
+    rabbitmq_sot: "{{ groups['morph'] | map('extract', hostvars, ['ansible_eth0', 'ipv4', 'address']) | list | sort | first}}"
+
+- debug:
+    var: rabbitmq_sot
 
 - name: Set fact on every host
   set_fact:
@@ -15,6 +21,7 @@
   delegate_to: "{{ item }}"
   with_items: "{{ play_hosts }}"
   run_once: true
+  when: ansible_eth0.ipv4.address == "{{ rabbitmq_sot }}"
 
 - debug:
     msg: "{{ myvar }}"
