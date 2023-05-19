@@ -1,29 +1,35 @@
 --- 
-- name: Get first IP address of host in the morph group. This will be our SOT node for RabbitMQ clustering
+- name: SOT IP Address
   set_fact:
-    rabbitmq_sot: "{{ groups['morph'] | map('extract', hostvars, ['ansible_eth0', 'ipv4', 'address']) | list | sort | first}}"
+    rabbitmq_sot: "{{ hostvars[ groups['morph'][0] ].ansible_eth0.ipv4.address }}"
 
 - debug:
     var: rabbitmq_sot
 
-- name: Get hostname of the SOT node
-  set_fact:
-    rabbitmq_sot_name: "{{ ansible_hostname }}"
-  when: ansible_eth0.ipv4.address == "{{ rabbitmq_sot }}"
 
+#- name: Get first IP address of host in the morph group. This will be our SOT node for RabbitMQ clustering
+#  set_fact:
+#    rabbitmq_sot: "{{ groups['morph'] | map('extract', hostvars, ['ansible_eth0', 'ipv4', 'address']) | list | sort | first}}"
+#
+#- debug:
+#    var: rabbitmq_sot
+#
+#- name: Get hostname of the SOT node
+#  set_fact:
+#    rabbitmq_sot_name: "{{ ansible_hostname }}"
+#  when: ansible_eth0.ipv4.address == "{{ rabbitmq_sot }}"
+#
 #- name: Write SOT hostname to a file
 #  become: true
 #  file:
 #    path: /var/tmp/sot
 #    state: touch
 #  run_once: true
-#  delegate_to: localhost
 #  when: ansible_eth0.ipv4.address == "{{ rabbitmq_sot }}"
-
-- name: Write fact to file
-  lineinfile:
-    path: /var/tmp/sot
-    line: "{{ rabbitmq_sot_name }}"
-  delegate_to: localhost
-  when: ansible_eth0.ipv4.address == "{{ rabbitmq_sot }}"
-    
+#
+#- name: Write fact to file
+#  lineinfile:
+#    path: /var/tmp/sot
+#    line: "{{ rabbitmq_sot_name }}"
+#  when: ansible_eth0.ipv4.address == "{{ rabbitmq_sot }}"
+#    
