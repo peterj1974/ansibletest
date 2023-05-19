@@ -4,7 +4,6 @@
   file:
     path: /tmp/hostname
     state: touch
-  run_once: true
 
 - name: Write fact to file
   lineinfile:
