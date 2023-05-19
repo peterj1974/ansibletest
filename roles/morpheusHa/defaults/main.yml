@@ -1,6 +1,6 @@
 ---
 # defaults file for morpheus
-morpheus_appliance_url: "https://morpheus.example.com"
+morpheus_appliance_url: "https://MORPHLAB-87a0a0e213f0ab68.elb.eu-west-1.amazonaws.com"
 morpheus_use_custom_repo: false
 morpheus_version: 6.1.0-2
 #morpheus_offline_version: 5.4.2-1
@@ -61,7 +61,7 @@ morpheus_elastic_ca_file: ""
 
 morpheus_mysql_external: true
 morpheus_db_group: db
-morpheus_db_host: "{'172.100.0.23' => 3306, '172.100.0.32' => 3306, '172.100.0.27' => 3306}"
+morpheus_db_host: "{'172.100.0.53' => 3306, '172.100.0.56' => 3306, '172.100.0.5' => 3306}"
 morpheus_db: morpheus
 morpheus_db_user: morpheus
 morpheus_db_pass: Password123?
