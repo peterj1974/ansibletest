@@ -1,5 +1,5 @@
 --- 
-- name: SOT IP Address
+- name: GetSOT IP Address
   set_fact:
     rabbitmq_sot_ip: "{{ hostvars[ groups['morph'][0] ].ansible_eth0.ipv4.address }}"
 
@@ -39,3 +39,131 @@
 #    line: "{{ rabbitmq_sot_name }}"
 #  when: ansible_eth0.ipv4.address == "{{ rabbitmq_sot }}"
 #    
+
+
+
+
+
+
+
+- name: Get first IP address of host in the morph group. This will be our SOT node for RabbitMQ clustering
+  set_fact:
+    rabbitmq_sot: "{{ groups['morph'] | map('extract', hostvars, ['ansible_eth0', 'ipv4', 'address']) | list | sort | first}}"
+
+- debug:
+    var: rabbitmq_sot
+
+- debug:
+    var: rabbitmq_sot_bind_address
+
+- debug:
+    var: ansible_eth0.ipv4.address
+
+- debug:
+    var: ansible_hostname
+
+- name: Get hostname of the SOT node
+  set_fact:
+    rabbitmq_sot_name: "{{ ansible_hostname }}"
+  when: ansible_eth0.ipv4.address == "{{ rabbitmq_sot }}"
+
+- debug:
+    var: rabbitmq_sot_name
+
+#- name: Get morpheus-secrets.json file
+#  fetch:
+#    src: /etc/morpheus/morpheus-secrets.json
+#    dest: /tmp/morpheus-secrets.json
+#    flat: yes
+#  when:
+#    - rabbitmq_sot_bind_address == rabbitmq_sot
+#
+#- name: Set fact for morpheus_password
+#  set_fact:
+#    morpheus_password: "{{ lookup('file', '/tmp/morpheus-secrets.json') | from_json | json_query('rabbitmq.morpheus_password') }}"
+#    queue_user_password: "{{ lookup('file', '/tmp/morpheus-secrets.json') | from_json | json_query('rabbitmq.queue_user_password') }}"
+#    cookie: "{{ lookup('file', '/tmp/morpheus-secrets.json') | from_json | json_query('rabbitmq.cookie') }}"
+#    run_once: true
+#
+#- debug:
+#    msg : 
+#    - '{{ morpheus_password }}'
+#    - '{{ queue_user_password }}'
+#    - '{{ cookie }}'
+#
+#- name: Stop morpheus-ui on not sot nodes
+#  become: true
+#  shell:
+#    cmd: morpheus-ctl stop morpheus-ui
+#  when:
+#    - rabbitmq_sot_bind_address != rabbitmq_sot
+#
+#- name: Stop RabbitMQ on not sot nodes
+#  become: true
+#  shell:
+#    cmd: |
+#      . /opt/morpheus/embedded/rabbitmq/.profile && rabbitmqctl stop_app
+#      morpheus-ctl stop rabbitmq || /bin/true
+#  when:
+#    - rabbitmq_sot_bind_address != rabbitmq_sot
+#
+#- name: Update morpheus-secrets.json
+#  become: true
+#  replace:
+#    path: /etc/morpheus/morpheus-secrets.json
+#    regexp: '{{ item.regexp }}'
+#    replace: '{{ item.replace }}'
+#  loop:
+#    - { regexp: '("morpheus_password": )"[^"]+"', replace: '"morpheus_password": "{{ morpheus_password }}"' }
+#    - { regexp: '("queue_user_password": )"[^"]+"', replace: '"queue_user_password": "{{ queue_user_password }}"' }
+#    - { regexp: '("cookie": )"[^"]+"', replace: '"cookie": "{{ cookie}}"' }
+#  when:
+#    - rabbitmq_sot_bind_address != rabbitmq_sot
+#
+#- name: Update .erlang.cookie
+#  become: true
+#  copy:
+#    content: "{{ cookie }}"
+#    dest: /opt/morpheus/embedded/rabbitmq/.erlang.cookie
+#  when:
+#    - rabbitmq_sot_bind_address != rabbitmq_sot
+#
+#- name: Run morpheus-ctl reconfigure on not sot nodes
+#  command: morpheus-ctl reconfigure
+#  poll: 10
+#  when:
+#    - rabbitmq_sot_bind_address != rabbitmq_sot
+
+#- name: Stop RabbitMQ
+#  command: morpheus-ctl stop rabbitmq
+#  ignore_errors: true
+#  when:
+#    - rabbitmq_sot_bind_address != rabbitmq_sot
+
+#- name: Start RabbitMQ
+#  command: morpheus-ctl start rabbitmq
+#  ignore_errors: true
+#  when:
+#    - rabbitmq_sot_bind_address != rabbitmq_sot
+
+#THIS TASK FAILS WITH PERMISSION DENIED
+#- name: Stop RabbitMQ App
+#  become: true
+#  command: . /opt/morpheus/embedded/rabbitmq/.profile && rabbitmqctl stop_app
+#  ignore_errors: true
+#  when:
+#    - rabbitmq_sot_bind_address != rabbitmq_sot
+
+#- name: Stop RabbitMQ App
+#  become: true
+#  shell:
+#    cmd: . /opt/morpheus/embedded/rabbitmq/.profile && rabbitmqctl stop_app
+#  when:
+#    - rabbitmq_sot_bind_address != rabbitmq_sot
+
+#- name: Stop RabbitMQ App
+#  become: true
+#  shell:
+#    cmd: . /opt/morpheus/embedded/rabbitmq/.profile && rabbitmqctl join_cluster 'rabbit@{{ rabbitmq_sot_name }}'
+#  when:
+#    - rabbitmq_sot_bind_address != rabbitmq_sot
