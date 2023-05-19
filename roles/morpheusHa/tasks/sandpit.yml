@@ -12,6 +12,7 @@
   when: ansible_eth0.ipv4.address == "{{ rabbitmq_sot }}"
 
 - name: Write SOT hostname to a file
+  become: true
   file:
     path: /var/tmp/sot
     state: touch
