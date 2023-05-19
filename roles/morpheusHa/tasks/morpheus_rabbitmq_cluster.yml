@@ -120,7 +120,7 @@
   when:
     - rabbitmq_sot_bind_address != rabbitmq_sot_ip
 
-- name: Stop RabbitMQ App
+- name: Add nodes to cluster
   become: true
   shell:
     cmd: . /opt/morpheus/embedded/rabbitmq/.profile && rabbitmqctl join_cluster 'rabbit@{{ rabbitmq_sot_host }}'
@@ -131,5 +131,18 @@
   become: true
   shell:
     cmd: . /opt/morpheus/embedded/rabbitmq/.profile && rabbitmqctl start_app
+  when:
+    - rabbitmq_sot_bind_address != rabbitmq_sot_ip
+
+- name: Run morpheus-ctl reconfigure on not sot nodes
+  command: morpheus-ctl reconfigure
+  poll: 10
+  when:
+    - rabbitmq_sot_bind_address != rabbitmq_sot_ip
+
+- name: Start morpheus-ui on not sot nodes
+  become: true
+  shell:
+    cmd: morpheus-ctl start morpheus-ui
   when:
     - rabbitmq_sot_bind_address != rabbitmq_sot_ip
