@@ -16,13 +16,14 @@
   file:
     path: /var/tmp/sot
     state: touch
+  run_once: true
   delegate_to: localhost
-  when: ansible_eth0.ipv4.address == "{{ rabbitmq_sot }}"
+#  when: ansible_eth0.ipv4.address == "{{ rabbitmq_sot }}"
 
-- name: Write fact to file
-  lineinfile:
-    path: /var/tmp/sot
-    line: "{{ rabbitmq_sot_name }}"
-  delegate_to: localhost
-  when: ansible_eth0.ipv4.address == "{{ rabbitmq_sot }}"
+#- name: Write fact to file
+#  lineinfile:
+#    path: /var/tmp/sot
+#    line: "{{ rabbitmq_sot_name }}"
+#  delegate_to: localhost
+#  when: ansible_eth0.ipv4.address == "{{ rabbitmq_sot }}"
     
