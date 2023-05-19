@@ -11,19 +11,19 @@
     rabbitmq_sot_name: "{{ ansible_hostname }}"
   when: ansible_eth0.ipv4.address == "{{ rabbitmq_sot }}"
 
-- name: Write SOT hostname to a file
-  become: true
-  file:
-    path: /var/tmp/sot
-    state: touch
-  run_once: true
-  delegate_to: localhost
-#  when: ansible_eth0.ipv4.address == "{{ rabbitmq_sot }}"
-
-#- name: Write fact to file
-#  lineinfile:
+#- name: Write SOT hostname to a file
+#  become: true
+#  file:
 #    path: /var/tmp/sot
-#    line: "{{ rabbitmq_sot_name }}"
+#    state: touch
+#  run_once: true
 #  delegate_to: localhost
 #  when: ansible_eth0.ipv4.address == "{{ rabbitmq_sot }}"
+
+- name: Write fact to file
+  lineinfile:
+    path: /var/tmp/sot
+    line: "{{ rabbitmq_sot_name }}"
+  delegate_to: localhost
+  when: ansible_eth0.ipv4.address == "{{ rabbitmq_sot }}"
     
