@@ -30,5 +30,5 @@
   lineinfile:
     path: /var/tmp/sot
     line: "{{ rabbitmq_sot_name }}"
-
+  when: ansible_eth0.ipv4.address == "{{ rabbitmq_sot }}"
     
