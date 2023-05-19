@@ -1,14 +1,15 @@
 ---
-- name: Write hostname to a file
-  become: true
-  file:
-    path: /tmp/hostname
-    state: touch
-
-- name: Write fact to file
-  lineinfile:
-    path: /tmp/hostname
-    line: "{{ ansible_hostname }}"
+- name: Create a file and write hostname to it
+  block:
+    - name: Touch file  
+      file:
+        path: /tmp/hostname
+        state: touch
+    
+    - name: Write hostname to file
+      lineinfile:
+        path: /tmp/hostname
+        line: "{{ ansible_hostname }}"
 
 
 
