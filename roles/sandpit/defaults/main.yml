@@ -1,0 +1,36 @@
+---
+# defaults file for morpheus
+morpheus_appliance_url: "https://3.249.161.96"
+morpheus_use_custom_repo: false
+morpheus_version: 6.1.0-2
+morpheus_validate_certs: false
+
+morpheus_setup: true
+morpheus_setup_appliance_name: Morpheus
+morpheus_setup_appliance_url: "{{ morpheus_appliance_url }}"
+morpheus_setup_master_tenant: Morpheus
+morpheus_setup_admin_username: admin
+morpheus_setup_admin_password: Password123?
+morpheus_setup_admin_email: test@example.com
+morpheus_setup_admin_firstname: admin
+morpheus_setup_admin_lastname: admin
+morpheus_setup_enable_backups: true
+morpheus_setup_enable_monitoring: true
+morpheus_setup_enable_logs: true
+morpheus_setup_hub_mode: register
+morpheus_setup_hub_email: "pjtest1903@gmail.com"
+morpheus_setup_hub_password: "Password123?Spir1fer"
+morpheus_setup_hub_firstname: "Pete"
+morpheus_setup_hub_lastname: "Jones"
+morpheus_setup_hub_jobtitle: "Engineer"
+morpheus_setup_hub_companyname: "Morph"
+
+morpheus_group: morphtest
+
+morpheus_upgrade_flag: false
+morpheus_package_state: present
+morpheus_down_string: "ok: down: morpheus-ui"
+morpheus_check_down_string: "down: morpheus-ui"
+
+#rabbitmq_sot: "{{ hostvars[ groups['morph'][0] ].ansible_eth0.ipv4.address }}"
+rabbitmq_sot_bind_address: "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
