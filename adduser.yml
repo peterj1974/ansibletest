@@ -1,12 +1,11 @@
 ---
-- name: This is to add user on instances
-  hosts: db
+- hosts: db
   gather_facts: yes
   become: yes
   become_user: root
   become_method: sudo
   tasks:
-  - name: Add a user
+  - name: This is to add user on instances
     user:
       name: scooper
       state: present
