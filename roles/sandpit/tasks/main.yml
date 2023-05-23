@@ -1,4 +1,11 @@
 ---
+- name: Create a file on node
+  block:
+    - name: Touch file  
+      file:
+        path: /tmp/pete
+        state: touch
+
 #- include_tasks: morpheus_packages_ubuntu.yml
 #  when: ansible_os_family == 'Debian'
 #
@@ -8,5 +15,5 @@
 #
 #- include_tasks: morpheus_rabbitmq_cluster.yml
 #
-- include_tasks: morpheus_initial_setup.yml
-  when: morpheus_setup
+#- include_tasks: morpheus_initial_setup.yml
+#  when: morpheus_setup
