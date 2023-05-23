@@ -3,9 +3,8 @@
   block:
     - name: Touch file  
       file:
-        path: /tmp/pete
+        path: /tmp/pete1
         state: touch
-
 #- include_tasks: morpheus_packages_ubuntu.yml
 #  when: ansible_os_family == 'Debian'
 #
