@@ -1,6 +1,6 @@
 ---
 - name: This is to add user on instances
-  hosts: all
+  hosts: db
   gather_facts: yes
   become: yes
   become_user: root
