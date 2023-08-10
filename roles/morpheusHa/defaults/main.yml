@@ -1,6 +1,6 @@
 ---
 # defaults file for morpheus
-morpheus_appliance_url: "https://install01-lb-de0c5d332f446e80.elb.ca-central-1.amazonaws.com"
+morpheus_appliance_url: "{{ morpheus['customOptions']['lbname'] }}"
 morpheus_use_custom_repo: false
 morpheus_version: 6.1.0-2
 #morpheus_offline_version: 5.4.2-1
