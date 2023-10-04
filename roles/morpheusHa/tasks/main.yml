@@ -1,12 +1,12 @@
 ---
-- include_tasks: morpheus_packages_ubuntu.yml
-  when: ansible_os_family == 'Debian'
+#- include_tasks: morpheus_packages_ubuntu.yml
+#  when: ansible_os_family == 'Debian'
 
-- include_tasks: morpheus_add_nfs.yml
+#- include_tasks: morpheus_add_nfs.yml
 
-- include_tasks: morpheus_configure.yml
+#- include_tasks: morpheus_configure.yml
 
-#- include_tasks: morpheus_check_elastic.yml
+- include_tasks: morpheus_check_elastic.yml
 
 #- include_tasks: morpheus_rabbitmq_cluster.yml
 
