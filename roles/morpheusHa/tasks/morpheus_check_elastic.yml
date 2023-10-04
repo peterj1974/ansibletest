@@ -5,4 +5,4 @@
     host: "{{ item }}"
     timeout: 5
     msg: "{{ item }} is not running. End of play."
-  loop: "{{ groups['morph'] }}"  
+  loop: "{{ groups['morpheus_group'] }}"  
