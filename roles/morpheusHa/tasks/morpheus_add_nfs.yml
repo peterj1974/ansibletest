@@ -1,0 +1,5 @@
+---
+- name: Add NFS mount to /etc/fstab
+  lineinfile:
+    dest: /etc/fstab
+    line: "{{ morpheus_nfs }}:/ /var/opt/morpheus/morpheus-ui nfs defaults 0 0"
