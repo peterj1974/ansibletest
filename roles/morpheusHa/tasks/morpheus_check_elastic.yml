@@ -1,8 +1,11 @@
 --- 
-- name: check elastic
-  wait_for:
-    port: 9300
-    host: "{{ item }}"
-    timeout: 5
-    msg: "{{ item }} is not running. End of play."
-  loop: "{{ groups[morpheus_group] }}"  
+#- name: check elastic
+#  wait_for:
+#    port: 9300
+#    host: "{{ item }}"
+#    timeout: 5
+#    msg: "{{ item }} is not running. End of play."
+#  loop: "{{ groups[morpheus_group] }}"  
+- name: Check elastic
+  wait_for: host=ts-morpheus-10 port=9300 timeout=5
+  debug: msg=ok
