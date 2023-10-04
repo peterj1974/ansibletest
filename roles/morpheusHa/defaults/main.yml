@@ -2,7 +2,7 @@
 # defaults file for morpheus
 morpheus_appliance_url: "{{ morpheus['customOptions']['lbname'] }}"
 morpheus_use_custom_repo: false
-morpheus_version: 6.2.1-1
+morpheus_version: 6.2.2-1
 #morpheus_offline_version: 5.4.2-1
 #morpheus_package_centos_7: "https://downloads.morpheusdata.com/files/morpheus-appliance-{{ morpheus_version }}.el7.x86_64.rpm"
 #morpheus_package_centos_8: "https://downloads.morpheusdata.com/files/morpheus-appliance-{{ morpheus_version }}.el8.x86_64.rpm"
