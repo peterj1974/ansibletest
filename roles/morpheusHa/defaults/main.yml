@@ -12,6 +12,7 @@ morpheus_package_ubuntu: "https://downloads.morpheusdata.com/files/morpheus-appl
 morpheus_disable_rpm_gpg_check: true
 morpheus_use_offline_package: false
 morpheus_validate_certs: false
+morpheus_nfs: "{{ morpheus['customOptions']['nfsip'] }}"
 
 morpheus_setup: true
 morpheus_setup_appliance_name: Morpheus
