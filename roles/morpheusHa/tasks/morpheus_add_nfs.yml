@@ -3,3 +3,13 @@
   lineinfile:
     dest: /etc/fstab
     line: "{{ morpheus_nfs }}:/ /var/opt/morpheus/morpheus-ui nfs defaults 0 0"
+
+- name: Mount NFS 
+  mount:
+    src: "{{ morpheus_nfs }}:/"
+    path: "/var/opt/morpheus/morpheus-ui"
+    fstype: nfs
+    opts: defaults
+    dump: 0
+    passno: 0
+    state: mounted
