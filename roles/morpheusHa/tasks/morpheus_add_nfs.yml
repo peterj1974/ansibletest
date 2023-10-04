@@ -4,6 +4,11 @@
     dest: /etc/fstab
     line: "{{ morpheus_nfs }}:/ /var/opt/morpheus/morpheus-ui nfs defaults 0 0"
 
+- name: Creates mount point
+  file:
+    path: /var/opt/morpheus/morpheus-ui
+    state: directory
+    
 - name: Mount NFS 
   mount:
     src: "{{ morpheus_nfs }}:/"
