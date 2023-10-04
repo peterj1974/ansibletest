@@ -9,11 +9,11 @@
     path: /var/opt/morpheus/morpheus-ui
     state: directory
 
--name: Install nfs-common
- apt:
-     deb: nfs-common
-     state: present
-
+- name: Install nfs-common
+  apt:
+    name: nfs-common
+    state: present
+    
 #- name: Mount NFS 
 #  mount:
 #    src: "{{ morpheus_nfs }}:/"
