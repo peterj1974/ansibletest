@@ -1,7 +1,7 @@
 ---
 - name: Get first IP address of the host in the morph group. This will be our source of truth (SOT) node for RabbitMQ clustering
   set_fact:
-    rabbitmq_sot_ip: "{{ groups['morph'] | map('extract', hostvars, ['ansible_eth0', 'ipv4', 'address']) | list | sort | first}}"
+    rabbitmq_sot_ip: "{{ groups[morpheus_group] | map('extract', hostvars, ['ansible_eth0', 'ipv4', 'address']) | list | sort | first}}"
 
 - debug:
     var: rabbitmq_sot_ip
