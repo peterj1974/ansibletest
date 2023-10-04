@@ -1,5 +1,5 @@
 ---
-- hosts: morph
+- hosts: db
   gather_facts: true
   become: yes
   become_method: sudo
