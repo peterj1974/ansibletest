@@ -8,13 +8,18 @@
   file:
     path: /var/opt/morpheus/morpheus-ui
     state: directory
-    
-- name: Mount NFS 
-  mount:
-    src: "{{ morpheus_nfs }}:/"
-    path: "/var/opt/morpheus/morpheus-ui"
-    fstype: nfs
-    opts: defaults
-    dump: 0
-    passno: 0
-    state: mounted
+
+-name: Install nfs-common
+ apt:
+     deb: nfs-common
+     state: present
+
+#- name: Mount NFS 
+#  mount:
+#    src: "{{ morpheus_nfs }}:/"
+#    path: "/var/opt/morpheus/morpheus-ui"
+#    fstype: nfs
+#    opts: defaults
+#    dump: 0
+#    passno: 0
+#    state: mounted
